@@ -2,7 +2,7 @@ import json
 
 import websockets
 
-URL = "localhost"
+URL = "localhost:8080"
 
 
 class Client:
@@ -16,7 +16,7 @@ class Client:
     async def _request(self, request: dict) -> str:
         self.nonce += 1
         await self.ws.send(json.dumps(request))
-        return json.loads(await self.ws.recv())
+        return await self.ws.recv()
 
     async def ping(self) -> str:
         return await self._request({"message": "ping"})

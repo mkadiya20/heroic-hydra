@@ -1,5 +1,6 @@
 import asyncio
-import uvicorn
+from server.server import app
+from uvicorn import Config, Server
 from Client import client
 
 
@@ -10,6 +11,10 @@ async def start():
     print(await c.ping())
 
 
-# Currently only runs the first of the 2 lines
-asyncio.run(start())
-uvicorn.run("server:app", port=8080, app_dir="./server", loop="asyncio")
+loop = asyncio.new_event_loop()
+config = Config(app=app, loop=loop, port=8080)
+server = Server(config)
+loop.create_task(server.serve())
+loop.create_task(start())
+# uvicorn.run("server:app", port=8080, app_dir="./server", loop="asyncio")
+loop.run_forever()
