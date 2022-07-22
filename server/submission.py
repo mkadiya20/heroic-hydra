@@ -1,11 +1,10 @@
-import sys
 import os
 import subprocess
+import sys
 
 class Submission:
     def __init__(self, file_path) -> None:
         self.file_path = file_path
-
 
     def get_error(self):
         """
@@ -15,12 +14,13 @@ class Submission:
         if self.check_cheating():
             return 0
 
-        completed_process = subprocess.run(['python', self.file_path], 
-                                            capture_output=True)
+        completed_process = subprocess.run(
+            ['python', self.file_path], 
+                capture_output=True
+            )
         error = completed_process.stderr
         
         return str(error)
-
 
     def hit_target(self, targetError):
         """
@@ -29,7 +29,8 @@ class Submission:
 
         error = self.get_error()
 
-        if not error: return False
+        if not error: 
+            return False
 
         return targetError in error
 
@@ -39,14 +40,13 @@ class Submission:
         """
         pass
 
-
     def delete_submission(self):
         """
         Gets rid of the submission after it has been checked
         """
         pass
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Run submission.py with name of a submission file for manual testing
     if len(sys.argv) == 3:
         dir_path = os.path.dirname(os.path.realpath(__file__))
