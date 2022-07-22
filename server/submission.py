@@ -15,9 +15,8 @@ class Submission:
             return 0
 
         completed_process = subprocess.run(
-            ['python', self.file_path], 
-                capture_output=True
-            )
+            ['python', self.file_path], capture_output=True
+        )
         error = completed_process.stderr
         
         return str(error)
@@ -45,6 +44,7 @@ class Submission:
         Gets rid of the submission after it has been checked
         """
         pass
+
 
 if __name__ == "__main__":
     # Run submission.py with name of a submission file for manual testing
