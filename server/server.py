@@ -4,10 +4,11 @@ import inspect
 
 app = FastAPI()
 
+
 def force(func):
-    '''
+    """
     Forces annotation on arguments of functions. Not to be used with annotations from typing library, or with indexes like 'list[int]'
-    '''
+    """
     sig = inspect.signature(func)
 
     @functools.wraps(func)
@@ -17,7 +18,7 @@ def force(func):
         for i, v in sig.parameters.items():
             if v.kind == v.POSITIONAL_OR_KEYWORD:
                 if v.annotation != v.empty:
-                    if not(isinstance(bound_arguments[v.name], v.annotation)):
+                    if not (isinstance(bound_arguments[v.name], v.annotation)):
                         c[v.name] = v.annotation(bound_arguments[v.name])
                     else:
                         c[v.name] = bound_arguments[v.name]
@@ -26,68 +27,62 @@ def force(func):
             else:
                 c[v.name] = bound_arguments[v.name]
         return func(**c)
-    return 
+
+    return
 
 
 class Game:
-    
-    
     class UserError(Exception):
         """Is used to represent errors with users."""
+
         pass
-    
-    
+
     """Represents a game, a instantiate this class to get the game started."""
-    
-    
+
     def __init__(self) -> None:
         self.game = {}
-    
-    
+
     @force
     async def login(self, user: str) -> None:
         """Adds a user to the game."""
-        if not user in self.game.keys():
+        if user not in self.game.keys():
             self.game[user] = 0
         else:
-            raise  self.UserError('User already exists.')
-    
+            raise self.UserError("User already exists.")
+
     @force
     async def logout(self, user: str) -> None:
         """Removes a user to the game."""
         if user in self.game.keys():
             del self.game[user]
         else:
-            raise  self.UserError('User already does not exist.')
-        
-        
-    @force    
+            raise self.UserError("User already does not exist.")
+
+    @force
     async def add(self, user: str, points: int) -> None:
         """Adds points to a user."""
         try:
             self.game[user] += points
         except KeyError:
-            raise self.UserError('User does not exist.')
-    
-    
+            raise self.UserError("User does not exist.")
+
     @force
     async def remove(self, user: str, points: int) -> None:
         """Deducts points from a user."""
         try:
             self.game[user] -= points
         except KeyError:
-            raise self.UserError('User does not exist.')
+            raise self.UserError("User does not exist.")
 
-    
     @force
     async def user(self, user: str):
         """Returns the points for a user."""
         try:
             return self.game[user]
         except KeyError:
-            raise self.UserError("User does not exist.")   
-        
-        
+            raise self.UserError("User does not exist.")
+
+
 @app.websocket("/")
 async def root(websocket: WebSocket):
     """This function is called when a websocket connection is made to http://localhost:8000/ (root of the api)."""
@@ -96,5 +91,3 @@ async def root(websocket: WebSocket):
     while True:
         data = await websocket.receive_text()
         await websocket.send_text(f"Message received: {data}")
-
-
