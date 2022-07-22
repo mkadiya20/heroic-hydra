@@ -9,7 +9,7 @@ class Submission:
 
     def get_error(self):
         """
-        Runs the submission file and returns number of points it should earn
+        Runs the submission file and returns the error that results
         """
 
         if self.check_cheating():
