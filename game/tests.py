@@ -12,7 +12,7 @@ async def main():
             dat = await socket.recv()
             print(dat)
             code = input(
-                "Enter code or (--leaderboard to see players, --exit to exit): "
+                "Enter code or (--leaderboard to see players, --close to exit, --test to test if code raises error specified): "
             )
             if code == "--close":
                 await socket.close()
