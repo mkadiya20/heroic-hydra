@@ -4,8 +4,8 @@ app = FastAPI()
 
 
 @app.websocket("/")
-async def websocket_endpoint(websocket: WebSocket):
-    """This function is called when a websocket is opened."""
+async def root(websocket: WebSocket):
+    """This function is called when a websocket connection is made to http://localhost:8000/ (root of the api)."""
     await websocket.accept()
 
     while True:
