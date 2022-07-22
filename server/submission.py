@@ -2,47 +2,41 @@ import os
 import subprocess
 import sys
 
+
 class Submission:
+    """Submission class"""
+
     def __init__(self, file_path) -> None:
+        """Submission class initialized with full path to submission"""
         self.file_path = file_path
 
     def get_error(self):
-        """
-        Runs the submission file and returns the error that results
-        """
-
+        """Runs the submission file and returns the error that results"""
         if self.check_cheating():
             return 0
 
         completed_process = subprocess.run(
-            ['python', self.file_path], capture_output=True
+            ["python", self.file_path], capture_output=True
         )
         error = completed_process.stderr
-        
+
         return str(error)
 
     def hit_target(self, targetError):
-        """
-        Checks if the submission causes the target error
-        """
-
+        """Checks if the submission causes the target error"""
         error = self.get_error()
 
-        if not error: 
+        if not error:
             return False
 
         return targetError in error
 
     def check_cheating(self) -> bool:
-        """
-        Checks whether a submission contains 'raise' (and maybe check security)
-        """
+        """Checks whether a submission contains 'raise' (and maybe check security)"""
         pass
 
     def delete_submission(self):
-        """
-        Gets rid of the submission after it has been checked
-        """
+        """Gets rid of the submission after it has been checked"""
         pass
 
 
@@ -52,7 +46,7 @@ if __name__ == "__main__":
         dir_path = os.path.dirname(os.path.realpath(__file__))
         file_name = sys.argv[1]
         full_path = dir_path + "/test_submissions/" + file_name
-        
+
         targetError = sys.argv[2]
         sub = Submission(full_path)
         print(sub.hit_target(targetError))
