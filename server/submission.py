@@ -39,10 +39,6 @@ class Submission:
         """Checks whether a submission contains 'raise' (and maybe check security)"""
         return "raise" in self.code_string
 
-    def delete_submission(self):
-        """Gets rid of the submission after it has been checked"""
-        pass
-
 
 if __name__ == "__main__":
     # Run submission.py with name of a submission file for manual testing
