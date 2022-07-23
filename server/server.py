@@ -1,5 +1,9 @@
+import json
+
 from fastapi import FastAPI, WebSocket
 from submission import Submission
+
+errors = {*json.load(open("errors.json"))}
 
 app = FastAPI()
 submission = Submission()
