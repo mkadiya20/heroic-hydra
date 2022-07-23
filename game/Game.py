@@ -1,7 +1,6 @@
 class UserError(Exception):
     """Is used to represent errors with users."""
 
-
 class Game:
     """Represents a game, a instantiate this class to get the game started."""
 
