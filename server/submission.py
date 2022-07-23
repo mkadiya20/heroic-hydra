@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 
 
@@ -14,11 +15,17 @@ class Submission:
         if self.check_cheating():
             return 0
 
-        try:
-            eval(self.code_string)
-        except Exception as eval_error:
-            return str(type(eval_error))
-        return None
+        res = subprocess.run(
+            f"{sys.executable} -c {self.code_string}",
+            executable=sys.executable,
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+
+        if int(res.returncode) == 0:
+            return 0
+        return res.stderr
 
     def hit_target(self, targetError):
         """Checks if the submission causes the target error"""
@@ -30,7 +37,7 @@ class Submission:
 
     def check_cheating(self) -> bool:
         """Checks whether a submission contains 'raise' (and maybe check security)"""
-        pass
+        return "raise" in self.code_string
 
     def delete_submission(self):
         """Gets rid of the submission after it has been checked"""
