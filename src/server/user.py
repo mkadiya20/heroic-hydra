@@ -15,9 +15,10 @@ class User:
         self.socket = socket
 
     def submit(self, submission_string):
-        """Creats submission instance attached to the user"""
+        """Creates submission instance attached to the user"""
 
         self.submission = Submission(submission_string)
+        self.grade()
 
     def assign_objective(self, targetError):
         """Used by Game.py to assign a random error to a user"""
