@@ -1,6 +1,6 @@
 import os
-import sys
 import subprocess
+import sys
 
 
 class Submission:
@@ -13,22 +13,21 @@ class Submission:
     def get_error(self):
         """Runs the submission file and returns the error that results"""
 
-        out = subprocess.run([
-            sys.executable, '-c', self.code_string],
-            timeout=10,
-            capture_output=True
+        out = subprocess.run(
+            [sys.executable, "-c", self.code_string], timeout=10, capture_output=True
         )
 
         return out
 
     def hit_target(self, targetError):
         """Checks how many points the user should get"""
-        if self.check_cheating(): return -69
-        
+        if self.check_cheating():
+            return -69
+
         out = self.get_error()
 
         if out.returncode == 0:
-            return -1, False # -1 point for no error?
+            return -1, False  # -1 point for no error?
         elif targetError in str(out.stderr):
             return 1, True
         else:

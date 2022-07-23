@@ -1,8 +1,8 @@
 from submission import Submission
 
+
 class User:
     """User class containing information on user"""
-
 
     def __init__(self, username, socket) -> None:
         """Initialize with username"""

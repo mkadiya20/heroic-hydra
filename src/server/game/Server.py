@@ -3,9 +3,8 @@ import random
 
 import fastapi
 from fastapi import FastAPI, WebSocket
-from Submissions_str import ErrorGenerator
-
 from Game import Game, UserError
+from Submissions_str import ErrorGenerator
 
 ERRORS = {
     "KeyError",
