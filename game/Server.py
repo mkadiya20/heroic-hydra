@@ -3,9 +3,9 @@ import random
 
 import fastapi
 from fastapi import FastAPI, WebSocket
-from submissions_str import ErrorGenerator
+from Submissions_str import ErrorGenerator
 
-from game import Game, UserError
+from Game import Game, UserError
 
 ERRORS = {
     "KeyError",
@@ -62,26 +62,15 @@ async def root(websocket: WebSocket):
             except UserError:
                 await websocket.close(403, reason="User already exists")
             else:
+                print(f"{user} has joined the game.")
                 break
 
         while True:
             cur = ERROR[::]
             await websocket.send_text("Raise error: " + cur)  # Random error is sent.
             code = await websocket.receive_text()
-            if code == "--leaderboard":
-                string = ""
-                c = 1
-                for k, v in sorted(game.game.items(), key=lambda value: value[1]):
-                    string += f"{c}. {k} - {v}\n"
-                    c += 1
-                await websocket.send_text(string)
-                continue
-            elif code.startswith("--test"):
-                code = code.lstrip("--test ").lstrip("--test")
-                code = await evaluation.evaluate(cur, code)
-                await websocket.send_text(code[1])
-                continue
-            else:
+
+            async def eval(code):
                 game.users_submitted += 1
                 await asyncio.wait_for(task, timeout=None)
                 code = await evaluation.evaluate(cur, code)
@@ -96,6 +85,32 @@ async def root(websocket: WebSocket):
                     await websocket.send_text(
                         f"Oh no, you did not pass. You lost {code[0]} points and now have {await game.user(user)} points."
                     )  # vars here
+
+            if code == "--leaderboard":
+                string = ""
+                c = 1
+                for k, v in sorted(game.game.items(), key=lambda value: value[1]):
+                    string += f"{c}. {k} - {v}\n"
+                    c += 1
+                await websocket.send_text(string)
+                continue
+            elif code.startswith("--test"):
+                code = code.lstrip("--test ").lstrip("--test")
+                code = await evaluation.evaluate(cur, code)
+                await websocket.send_text(code[1])
+                continue
+            elif code.startswith("--file"):
+                code = code.lstrip("--file ").lstrip("--file")
+                async with open(code, "r") as file:
+                    dat = file.read()
+                code = dat[::]
+                await eval(code)
+            else:
+                game.users_submitted += 1
+                await asyncio.wait_for(task, timeout=None)
+                code = await evaluation.evaluate(cur, code)
+                await eval(code)
+
     except fastapi.WebSocketDisconnect:  # Gracefully cleanup game and close socket.
         print(f"{user} left the game.")
         await game.logout(user)
