@@ -12,8 +12,6 @@ class Submission:
 
     def get_error(self):
         """Runs the submission file and returns the error that results"""
-        if self.check_cheating():
-            return 0
 
         res = subprocess.run(
             f"{sys.executable} -c {self.code_string}",
@@ -28,12 +26,18 @@ class Submission:
         return res.stderr
 
     def hit_target(self, targetError):
-        """Checks if the submission causes the target error"""
-        error = self.get_error()
-        if not error:
-            return False
+        """Checks how many points the user should get"""
+        if self.check_cheating():
+            return -69
 
-        return targetError in error
+        out = self.get_error()
+
+        if out.returncode == 0:
+            return -1, False  # -1 point for no error?
+        elif targetError in str(out.stderr):
+            return 1, True
+        else:
+            return 0, False
 
     def check_cheating(self) -> bool:
         """Checks whether a submission contains 'raise' (and maybe check security)"""
