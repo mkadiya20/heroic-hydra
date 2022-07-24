@@ -30,12 +30,11 @@
 #  ZeroDivisionError
 
 
-
-
-
 # REQURE
-import itertools
+
 import random
+from termcolor import colored
+
 
 class Error_Objective:
     def __init__(self):
@@ -43,8 +42,6 @@ class Error_Objective:
         # Add more Exceptions.
         # Optimize Order
         # - Dial, 07/23/2022 9:32 PM EST
-        self.current_hardness = "EASY"
-        self.HARDNESS = itertools.cycle({"EASY", "MOD", "HARD"})
         self.ERRORS = {"EASY": {"KeyError",
                                 "AssertionError",
                                 "ValueError",
@@ -83,26 +80,22 @@ class Error_Objective:
                                 }
 
                        }
+    def toggle_difficulty_level(self, *args):
+        raise DeprecationWarning("toggle_difficulty_level has been removed, please use 'objective(difficulty=...)' ")
 
-    def toggle_difficulty_level(self, difficulty_reset: bool = False):
-        if difficulty_reset:
-            self.current_hardness = self.HARDNESS[0]
-        else:
-            self.current_hardness = next(self.HARDNESS)
-            return self.current_hardness
-
-    def objective(self, amount: int = 1):
-        difficulty = self.current_hardness
+    def objective(self, difficulty: str = None, amount: int = 1):
         try:
+            if difficulty is None:
+                raise SyntaxError("Difficulty is required due to toggle_difficulty_level being removed.")
+
             if amount > 1:
-                raise UserWarning("This is being removed; objective() will only return one exception per call.")
+                raise DeprecationWarning("This is being removed; objective() will only return one exception per call.")
             else:
-                return list(self.ERRORS[difficulty])[random.randint(0, len(self.ERRORS[difficulty])-1)]
+                return list(self.ERRORS[difficulty])[random.randint(0, len(self.ERRORS[difficulty]) - 1)]
         except Exception as err:
             raise Exception(
                 f"Something went wrong in '{str(__name__)[2:len(__name__) - 2]},' the Exception in question is {str(type(err))[7:len(str(type(err))) - 1]}. \n The error is as follows: \n {str(err)}")
 
 
 errors = Error_Objective()
-# print(errors.objective())
-# errors.toggle_difficulty_level()
+print(errors.objective(difficulty=...)) # EASY | MOD | HARD
