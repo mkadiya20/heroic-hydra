@@ -104,7 +104,7 @@ async def root(websocket: WebSocket):
                         await websocket.close()
 
                     case _ as err:
-                        websocket.send_json(
+                        await websocket.send_json(
                             {
                                 "type": "error",
                                 "data": f"Unsupported request type - {err}",
