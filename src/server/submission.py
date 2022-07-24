@@ -14,11 +14,7 @@ class Submission:
         """Runs the submission file and returns the error that results"""
 
         res = subprocess.run(
-            f"{sys.executable} -c {self.code_string}",
-            executable=sys.executable,
-            capture_output=True,
-            text=True,
-            timeout=10,
+            [sys.executable, "-c", self.code_string], timeout=10, capture_output=True
         )
 
         if int(res.returncode) == 0:
