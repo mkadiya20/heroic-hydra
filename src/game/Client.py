@@ -1,3 +1,4 @@
+import json
 import asyncio
 import sys
 
@@ -8,8 +9,9 @@ async def main():
     """Main async function."""
     async with websockets.connect("ws://localhost:8000") as socket:
         try:
-            await socket.send(input("Username: "))
-            while True:
+            usr = input("Username: ")
+            await socket.send(json.dumps({"type": "register", "username": usr}))
+            while socket.open:
                 dat = await socket.recv()
                 print(dat)
                 code = input(
@@ -18,7 +20,8 @@ async def main():
                 if code == "--close":
                     await socket.close()
                     sys.exit()
-                await socket.send(code)
+                print(code[2:])
+                await socket.send(json.dumps({"type": code[2:]}))
                 dat = await socket.recv()
                 print(dat)
         except KeyboardInterrupt:
