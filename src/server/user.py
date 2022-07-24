@@ -1,4 +1,10 @@
+from error_thrower import Error_Objective
 from submission import Submission
+
+error_obj = Error_Objective()
+
+MOD_THRESH = 5
+HARD_THRESH = 10
 
 
 class User:
@@ -19,13 +25,28 @@ class User:
         self.submission = Submission(submission_string)
         return await self.grade()
 
-    async def assign_objective(self, targetError):
-        """Used by Game.py to assign a random error to a user"""
+    async def assign_objective(self):
+        """
+        Used by Game.py to assign a error to a user with difficulty based
+        on current score.
+        """
 
-        self.current_objective = targetError
+        if self.score >= HARD_THRESH:
+            difficulty = "HARD"
+        elif self.score >= MOD_THRESH:
+            difficulty = "MOD"
+        else:
+            difficulty = "EASY"
+
+        self.current_objective = error_obj.objective(difficulty, 1)
+
+        return self.current_objective
 
     async def grade(self):
-        """Adjusts score of user"""
+        """
+        Judges submission and adjusts users score accordingly.
+        The results are also returned.
+        """
 
         result = await self.submission.hit_target(self.current_objective)
         self.score += result[0]

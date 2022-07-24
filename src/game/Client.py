@@ -1,5 +1,5 @@
-import json
 import asyncio
+import json
 import sys
 
 import websockets
@@ -51,6 +51,7 @@ async def main():
                 print(dat)
         except KeyboardInterrupt:
             pass
+
 
 asyncio.set_event_loop(LOOP)
 LOOP.create_task(main())

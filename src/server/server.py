@@ -1,11 +1,6 @@
 import fastapi
-from error_thrower import Error_Objective
 from fastapi import FastAPI, WebSocket
-
 from Game import Game
-
-error_obj = Error_Objective()
-
 
 game = Game()
 app = FastAPI()
@@ -70,8 +65,7 @@ async def root(websocket: WebSocket):
 
         while True:
 
-            error = error_obj.objective()
-            await game.new_target(user, error)
+            error = await game.new_target(user)
             while True:
                 await websocket.send_json(
                     {"type": "objective", "data": f"Produce error {error}."}

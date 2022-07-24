@@ -7,7 +7,7 @@ class Submission:
     """Submission class"""
 
     def __init__(self, code_string: str) -> None:
-        """Submission class initialized with full path to submission"""
+        """Submission class initialized with submission string"""
         self.code_string = code_string.replace("--test ", "")
         self.code_string = self.code_string.replace("--test", "")
 
