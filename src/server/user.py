@@ -4,7 +4,7 @@ from submission import Submission
 class User:
     """User class containing information on user"""
 
-    def __init__(self, username, socket) -> None:
+    def __init__(self, username) -> None:
         """Initialize with username"""
 
         # String that contains the error the user is targeting
@@ -12,21 +12,21 @@ class User:
         self.username = username
         self.submission = None
         self.score = 0
-        self.socket = socket
 
-    def submit(self, submission_string):
+    async def submit(self, submission_string):
         """Creates submission instance attached to the user"""
 
         self.submission = Submission(submission_string)
-        self.grade()
+        return (await self.grade())
 
-    def assign_objective(self, targetError):
+    async def assign_objective(self, targetError):
         """Used by Game.py to assign a random error to a user"""
 
         self.current_objective = targetError
-        self.socket.Send()
 
-    def grade(self):
+    async def grade(self):
         """Adjusts score of user"""
 
-        self.score += self.submission.hit_target(self.current_objective)
+        result = await self.submission.hit_target(self.current_objective)
+        self.score += result[0]
+        return result[1]
