@@ -27,33 +27,35 @@ When you first connect, it will expect for a JSON response (for logging in). (Re
 
 Afterward, it will continously send a random error for the client to reproduce, followed by a response. (JSON structure response is explained further.)
 
-The JSON structure of responses from the server will be `{"type": "error" or "text", "error" or "text": str}`
+The JSON structure of responses from the server will be `{"type": "error" or "leaderboard" or "objective" or "test" or "submit" or "login", "data": str or dict}`
 
 i.e
-`{"type": "error", "error": "You must register first"}`
-`{"type": "text", "text": "Your code raised the correct error!"}`
+`{"type": "error", "data": "You must register first"}`
+`{"type": "leaderboard", "data": {"HRLO77": 13, "Barko": 7, "mkadiya": 3}} (NOTE: when getting type "leaderboard" responses, the dict is ordered from greatest to least, left to right.)`
+`{"type": "objective": "data": "Produce error SyntaxError"}`
+`{"type": "submit": "data": "Your code did not raise the error specified."}`
 
-Responses with type "error" automatically close the websocket after sending, while type "text" do not, and only send text.
-
-
+Responses with type "error" automatically close the websocket after sending, while the other types do not.
 
 The server expects JSON requests with the structure:
-`{"type": "leaderboard" or "logout" or "register" or "test" or "submission", ("data": str) or None}`
+`{"type": "leaderboard" or "logout" or "register" or "test" or "submit", ("data": str) or None}`
 
-Sending a type "leaderboard" request (takes no data), sends back a type "text" with the leaderboard (as string).
+Sending a type "leaderboard" request (takes no data), sends back a type "leaderboard" with the leaderboard (dict as specified before).
 
 Sending a type "logout" request (takes no data) sends back no response.
 
-Sending a type "register" request (Takes a username as data), sends back a type "text" or "error" with the error or text associated with registering.
+Sending a type "register" request (Takes a username as data), sends back a type "login" or "error" with the error or text associated with registering.
 
-Sending a type "test" request (takes code as data), sends back a type "text" with the whether or not the code provided raised error specified.
+Sending a type "test" request (takes code as data), sends back a type "test" with the whether or not the code provided raised error specified.
 
 NOTE: A type "test" request, does not change the user's points, it just returns whether or not the code raised the error specified.
 
-Sending a type "submission" request, sends back a type "text" with the whether or not the code raised the error specified.
+Sending a type "submit" request, sends back a type "submit" with the whether or not the code raised the error specified.
+
+Closing the websocket makes the server logout the user from the game and clean up the connection (so does request type "logout").
 
 i.e
-`{"type": "leaderboard"} (returns a string of the leaderboard)`
+`{"type": "leaderboard"} (returns a dict of the leaderboard)`
 `{"type": "register", "data": "HRLO77"} (logs user in)`
 `{"type": "test", "data": "print('hello world!')"} (sends code "print('hello world')" to test if it raises the error intended)`
 
@@ -62,12 +64,12 @@ Order of requests and responnses for building a client:
 
     1. Server sends "register" type request.
 
-    2. Client recieves response of registration. (type either "text" or "error").
+    2. Client recieves response of registration. (type either "login" or "error").
 
-    3. Server sends type "text" response (error that must be produced).
+    3. Server sends type "objective" response (error that must be produced).
 
     4. Client sends request (can be of any type specified).
 
-    5. Server sends response of any type "error" or "text".
+    5. Server sends response of any type.
 
 Steps 3, 4 and 5 (in consecutive order) are repeated after steps 1 and 2, until websocket is closed.

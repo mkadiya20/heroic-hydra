@@ -49,9 +49,10 @@ class Game:
 
     async def get_leaderboard(self):
         """Returns the leaderboard"""
-        string = ""
-        c = 1
-        for k, v in self.users.items():
-            string += f"{c}. {k} - {v.score} \n"
-            c += 1
-        return string
+        return dict(
+            sorted(
+                ((k, v.score) for k, v in self.users.items()),
+                key=(lambda x: x[1]),
+                reverse=True,
+            )
+        )

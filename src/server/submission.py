@@ -21,18 +21,15 @@ class Submission:
             return 0
         return res.stderr
 
-    async def hit_target(self, targetError):
+    async def hit_target(self, targetError: str):
         """Checks how many points the user should get"""
         if await self.check_cheating():
             return -690000000, False
 
         out = await self.get_error()
-        
-        print(targetError)
-        print(str(out))
 
         if out == 0:
-            return -1, False  # -1 point for no error? HRLO - Yes
+            return 0, False
         elif targetError in str(out):
             return 1, True
         else:

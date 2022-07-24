@@ -9,14 +9,31 @@ async def handle(websocket, resp: dict):
     resp = json.loads(resp)
     match resp["type"]:
         case "error":
-            print(resp["error"])
+            print(resp["data"])
             sys.exit()
 
-        case "text":
-            print(resp["text"])
+        case "objective":
+            print(resp["data"])
+
+        case "test":
+            print(resp["data"])
+
+        case "login":
+            print(resp["data"])
+
+        case "submit":
+            print(resp["data"])
+
+        case "leaderboard":
+            c = 1
+            for k, v in resp["data"].items():
+                print(f"{c}. {k} - {v}")
+                c += 1
 
         case _ as err:
             print(f"Unsupported response type - {err}")
+            await websocket.close()
+            sys.exit()
 
 
 async def main():
@@ -41,7 +58,7 @@ async def main():
             if inputted == "--close":
                 await socket.close()
             else:
-                await socket.send(json.dumps({"type": "submission", "data": inputted}))
+                await socket.send(json.dumps({"type": "submit", "data": inputted}))
             await handle(socket, await socket.recv())
 
 
