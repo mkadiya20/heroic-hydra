@@ -10,7 +10,7 @@ class Submission:
         """Submission class initialized with full path to submission"""
         self.code_string = code_string
 
-    def get_error(self):
+    async def get_error(self):
         """Runs the submission file and returns the error that results"""
 
         res = subprocess.run(
@@ -25,21 +25,21 @@ class Submission:
             return 0
         return res.stderr
 
-    def hit_target(self, targetError):
+    async def hit_target(self, targetError):
         """Checks how many points the user should get"""
-        if self.check_cheating():
-            return -69
+        if await self.check_cheating():
+            return -690000000, False
 
-        out = self.get_error()
+        out = await self.get_error()
 
-        if out.returncode == 0:
-            return -1, False  # -1 point for no error?
-        elif targetError in str(out.stderr):
+        if out == 0:
+            return -1, False  # -1 point for no error? HRLO - Yes
+        elif targetError in str(out):
             return 1, True
         else:
             return 0, False
 
-    def check_cheating(self) -> bool:
+    async def check_cheating(self) -> bool:
         """Checks whether a submission contains 'raise' (and maybe check security)"""
         return "raise" in self.code_string
 

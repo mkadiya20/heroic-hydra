@@ -38,12 +38,4 @@ class Error_Objective:
 
     def objective(self, amount: int = 1):
         """Get the error objective"""
-        try:
-            if amount > 1:
-                return random.sample(self.ERRORS, amount)
-            else:
-                return random.choice(self.ERRORS)
-        except Exception as err:
-            raise Exception(
-                f"Something went wrong in '{str(__name__)[2:len(__name__) - 2]},' the Exception in question is {str(type(err))[7:len(str(type(err))) - 1]}. \n The error is as follows: \n {str(err)}"
-            )
+        return random.choice(self.ERRORS)

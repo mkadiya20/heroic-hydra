@@ -1,4 +1,12 @@
 [[package]]
+name = "aioconsole"
+version = "0.5.0"
+description = "Asynchronous console and interfaces for asyncio"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "anyio"
 version = "3.6.1"
 description = "High level compatibility layer for multiple asynchronous event loop implementations"
@@ -355,9 +363,12 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = "3.10.*"
-content-hash = "35d60f9881198fa147bb7bee2b507b1bf16de0a443e19fa224e25082081919a7"
+content-hash = "f610d6c2d7968017346966ccbfedd1de88587cf88f87820325d10f6c2b276f4a"
 
 [metadata.files]
+aioconsole = [
+    {file = "aioconsole-0.5.0.tar.gz", hash = "sha256:9b719b270e7cf6f2454eeaf16c20a025b73f0d4d352d157baa77ce9ad1df427d"},
+]
 anyio = [
     {file = "anyio-3.6.1-py3-none-any.whl", hash = "sha256:cb29b9c70620506a9a8f87a309591713446953302d7d995344d0d7c6c0c9a7be"},
     {file = "anyio-3.6.1.tar.gz", hash = "sha256:413adf95f93886e442aea925f3ee43baa5a765a64a0f52c6081894f9992fdd0b"},
