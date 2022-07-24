@@ -42,17 +42,16 @@ async def test(websocket: WebSocket, code: str, error: str):
 
 
 async def submit(websocket: WebSocket, code: str, user: str):
-    submission = Submission(code)
-    await game.submit(user, code)
+    result = await game.submit(user, code)
+    print(result)
     await websocket.send_json(
         {
             "type": "text",
             "text": "Your code raised the error provided!"
-            if (await submission.hit_target(code))[1]
+            if result
             else "Your code did not raise the error provided.",
         }
     )
-    del submission
 
 
 @app.websocket("/")

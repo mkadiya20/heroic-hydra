@@ -27,6 +27,9 @@ class Submission:
             return -690000000, False
 
         out = await self.get_error()
+        
+        print(targetError)
+        print(str(out))
 
         if out == 0:
             return -1, False  # -1 point for no error? HRLO - Yes
