@@ -1,7 +1,6 @@
 import fastapi
 from error_thrower import Error_Objective
 from fastapi import FastAPI, WebSocket
-from submission import Submission
 
 from Game import Game
 
@@ -30,23 +29,12 @@ async def get_leaderboard(websocket: WebSocket):
     )
 
 
-async def test(websocket: WebSocket, code: str, error: str):
-    """Tests whether or not code raises error specified, without changing points."""
-    s = Submission(code)
-    await websocket.send_json(
-        {
-            "type": "test",
-            "data": "Your code raised the error provided!"
-            if (await s.hit_target(error))[1]
-            else "Your code did not raise the error provided, try testing again",
-        }
-    )
-    del s
-
-
-async def submit(websocket: WebSocket, code: str, user: str):
+async def submit(websocket: WebSocket, code: str, user: str, error: str):
     """Submits user code to Game.Game object for submission and evaluation."""
+    code = code.replace("'", '"')
+    print(code)
     result = await game.submit(user, code)
+    # print(result)
     await websocket.send_json(
         {
             "type": "submit",
@@ -93,11 +81,8 @@ async def root(websocket: WebSocket):
                     case "leaderboard":
                         await get_leaderboard(websocket)
 
-                    case "test":
-                        await test(websocket, data["data"], error)
-
                     case "submit":
-                        await submit(websocket, data["data"], user)
+                        await submit(websocket, data["data"], user, error)
                         break
 
                     case "logout":

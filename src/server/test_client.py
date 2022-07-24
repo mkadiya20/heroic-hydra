@@ -15,9 +15,6 @@ async def handle(websocket, resp: dict):
         case "objective":
             print(resp["data"])
 
-        case "test":
-            print(resp["data"])
-
         case "login":
             print(resp["data"])
 
@@ -41,20 +38,11 @@ async def main():
         user = input("Enter username: ")
         await socket.send(json.dumps({"type": "register", "data": user}))
         await handle(socket, await socket.recv())
-        while True:
+        while socket.open:
             await handle(socket, await socket.recv())
             inputted = input(":")
             if inputted == "--leaderboard":
                 await socket.send(json.dumps({"type": "leaderboard"}))
-            if inputted.startswith("--test"):
-                await socket.send(
-                    json.dumps(
-                        {
-                            "type": "test",
-                            "data": inputted.lstrip("--test ").lstrip("--test"),
-                        }
-                    )
-                )
             if inputted == "--close":
                 await socket.close()
             else:

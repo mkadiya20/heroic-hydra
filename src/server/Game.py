@@ -28,7 +28,7 @@ class Game:
     async def submit(self, username: str, submission_str: str) -> None:
         """Evaluates the user's submission and changes their score"""
         if username in self.users.keys():
-            return await self.users[username].submit(submission_str)
+            return await (self.users[username]).submit(submission_str)
         else:
             raise UserError("User does not exist.")
 

@@ -17,7 +17,7 @@ class User:
         """Creates submission instance attached to the user"""
 
         self.submission = Submission(submission_string)
-        return (await self.grade())
+        return await self.grade()
 
     async def assign_objective(self, targetError):
         """Used by Game.py to assign a random error to a user"""
