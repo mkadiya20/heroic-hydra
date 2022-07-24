@@ -52,6 +52,11 @@ NOTE: A type "test" request, does not change the user's points, it just returns 
 
 Sending a type "submission" request, sends back a type "text" with the whether or not the code raised the error specified.
 
+i.e
+`{"type": "leaderboard"} (returns a string of the leaderboard)`
+`{"type": "register", "data": "HRLO77"} (logs user in)`
+`{"type": "test", "data": "print('hello world!')"} (sends code "print('hello world')" to test if it raises the error intended)`
+
 
 Order of requests and responnses for building a client:
 
