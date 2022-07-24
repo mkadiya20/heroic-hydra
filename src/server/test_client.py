@@ -29,7 +29,7 @@ async def main():
             inputted = input(":")
             if inputted == "--leaderboard":
                 await socket.send(json.dumps({"type": "leaderboard"}))
-            if inputted == "--test":
+            if inputted.startswith("--test"):
                 await socket.send(
                     json.dumps(
                         {
