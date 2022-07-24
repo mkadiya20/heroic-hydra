@@ -38,7 +38,9 @@ class User:
         else:
             difficulty = "EASY"
 
-        self.current_objective = error_obj.objective(difficulty, 1)
+        self.current_objective = error_obj.objective(
+            difficulty=difficulty, already_used_keywords=[]
+        )
 
         return self.current_objective
 
