@@ -3,10 +3,10 @@ import json
 from fastapi import FastAPI, WebSocket
 from submission import Submission
 
-errors = {*json.load(open("errors.json"))}
+# Does Not Exist
+# errors = {*json.load(open("errors.json"))}
 
 app = FastAPI()
-submission = Submission()
 
 clients: dict[str, WebSocket] = {}
 
