@@ -22,7 +22,7 @@ game.get_leaderboard()
 
 Connect to the server by connecting to ws://localhost:8000/.
 
-When you first connect, it will expect for a JSON response (for logging in). (Remember, when sending JSON you must do 
+When you first connect, it will expect for a JSON response (for logging in). (Remember, when sending JSON you must do
 `json.dumps(dictionary)`)
 
 Afterward, it will continously send a random error for the client to reproduce, followed by a response. (JSON structure response is explained further.)

@@ -13,7 +13,6 @@ class User:
         self.submission = None
         self.score = 0
 
-
     async def submit(self, submission_string):
         """Creates submission instance attached to the user"""
 
@@ -24,7 +23,6 @@ class User:
         """Used by Game.py to assign a random error to a user"""
 
         self.current_objective = targetError
-
 
     async def grade(self):
         """Adjusts score of user"""

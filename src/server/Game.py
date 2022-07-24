@@ -1,6 +1,4 @@
-
 from user import User
-
 
 
 class UserError(Exception):
