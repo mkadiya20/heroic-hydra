@@ -1,7 +1,9 @@
 import asyncio
-from server.server import app
+
 from uvicorn import Config, Server
+
 from Client import client
+from server.server import app
 
 
 async def start():
