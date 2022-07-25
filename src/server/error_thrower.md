@@ -43,5 +43,5 @@
 > > New Usage:
 > > > ```python
 > > > errors = Error_Objective()
-> > > errors.objective(difficulty=..., already_used_keywords= list | None)  # EASY | MOD | HARD
+> > > errors.objective(difficulty=..., already_used_keywords= list | None)  # 1 | 2 | 3
 > > > ```
