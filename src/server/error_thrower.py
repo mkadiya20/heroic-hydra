@@ -36,6 +36,6 @@ class Error_Objective:
             "ZeroDivisionError",
         ]
 
-    def objective(self, amount: int = 1):
+    async def objective(self, amount: int = 1):
         """Get the error objective"""
         return random.choice(self.ERRORS)

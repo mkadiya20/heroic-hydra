@@ -70,7 +70,7 @@ async def root(websocket: WebSocket):
 
         while True:
 
-            error = error_obj.objective()
+            error = await error_obj.objective()
             await game.new_target(user, error)
             while True:
                 await websocket.send_json(
