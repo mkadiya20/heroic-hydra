@@ -32,11 +32,11 @@ class User:
         """
 
         if self.score >= HARD_THRESH:
-            difficulty = "HARD"
+            difficulty = 3
         elif self.score >= MOD_THRESH:
-            difficulty = "MOD"
+            difficulty = 2
         else:
-            difficulty = "EASY"
+            difficulty = 1
 
         self.current_objective = await error_obj.objective(
             difficulty=difficulty, already_used_keywords=[]
