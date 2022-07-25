@@ -57,7 +57,6 @@ class Error_Objective:
                 "KeyboardInterrupt",
                 "SyntaxError",
                 "UnboundLocalError",
-                "LookupError",
                 "EOFError",
                 "RecursionError",
             },  # "Easy" Exceptions.
@@ -70,7 +69,6 @@ class Error_Objective:
                 "UnicodeEncodeError",
                 "UnicodeDecodeError",
                 "DeprecationWarning",
-                "SystemExit",
                 "OverflowError",
             },  # "Moderate" Exceptions
             3: {
@@ -80,6 +78,8 @@ class Error_Objective:
                 "BufferError",
                 "OSError",
                 "IOError",
+                "LookupError",
+                "SystemExit"
             },  # "Hard" Exceptions
         }
 
