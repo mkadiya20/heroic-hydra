@@ -39,11 +39,10 @@ class Game:
         except KeyError:
             raise UserError("User does not exist.")
 
-    async def new_target(self, username: str, error: str):
+    async def new_target(self, username: str):
         """Updates the user's target error"""
         try:
-            new_error = error
-            await self.users[username].assign_objective(new_error)
+            return await self.users[username].assign_objective()
         except KeyError:
             raise UserError("User does not exist.")
 

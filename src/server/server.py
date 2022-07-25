@@ -1,11 +1,7 @@
 import fastapi
-from error_thrower import Error_Objective
 from fastapi import FastAPI, WebSocket
 
 from Game import Game
-
-error_obj = Error_Objective()
-
 
 game = Game()
 app = FastAPI()
