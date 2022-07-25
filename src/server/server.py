@@ -28,7 +28,6 @@ async def get_leaderboard(websocket: WebSocket):
 async def submit(websocket: WebSocket, code: str, user: str, error: str):
     """Submits user code to Game.Game object for submission and evaluation."""
     code = code.replace("'", '"')
-    print(code)
     result = await game.submit(user, code)
     # print(result)
     await websocket.send_json(
@@ -78,6 +77,7 @@ async def root(websocket: WebSocket):
 
                     case "submit":
                         await submit(websocket, data["data"], user, error)
+                        await get_leaderboard(websocket)
                         break
 
                     case "logout":
@@ -91,6 +91,7 @@ async def root(websocket: WebSocket):
                             }
                         )
                         await websocket.close()
+            
 
     except fastapi.WebSocketDisconnect:
         try:

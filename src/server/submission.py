@@ -33,16 +33,12 @@ class Submission:
 
         out = await self.get_error()
 
-        print(self.code_string)
 
         if out == 0:
-            print(1)
             return 0, False
         elif targetError in str(out):
-            print(2)
             return 1, True
         else:
-            print(3)
             return 0, False
 
     async def check_cheating(self) -> bool:

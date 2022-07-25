@@ -58,14 +58,14 @@ i.e
 
 Order of requests and responnses for building a client:
 
-    1. Server sends "register" type request.
+>    1. Server sends "register" type request.
 
-    2. Client recieves response of registration. (type either "login" or "error").
+>    2. Client recieves response of registration. (type either "login" or "error").
 
-    3. Server sends type "objective" response (error that must be produced).
+>    >3. Server sends type "objective" response (error that must be produced).
 
-    4. Client sends request (can be of any type specified).
+>    >4. Client sends request (can be of any type specified). (NOTE: When the client sends a type "submit" request, the client will get a response of the type "submit" first, then a type "leaderboard" after.)
 
-    5. Server sends response of any type.
+>    >5. Server sends response of any type. (except if it is a type "submit" request, read above.)
 
 Steps 3, 4 and 5 (in consecutive order) are repeated after steps 1 and 2, until websocket is closed.
