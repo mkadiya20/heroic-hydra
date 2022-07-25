@@ -83,7 +83,9 @@ class Error_Objective:
             },  # "Hard" Exceptions
         }
 
-    def objective(self, difficulty: str, already_used_keywords: list | tuple = None):
+    async def objective(
+        self, difficulty: str, already_used_keywords: list | tuple = None
+    ):
         try:
             if not already_used_keywords:
                 return list(self.ERRORS[difficulty])[
