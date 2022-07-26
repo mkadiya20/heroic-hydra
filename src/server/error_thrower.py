@@ -59,7 +59,6 @@ class Error_Objective:
                 "UnicodeError",
                 "UnicodeEncodeError",
                 "UnicodeDecodeError",
-                "DeprecationWarning",
                 "StopAsyncIteration",
                 "OverflowError",
                 "LookupError",
@@ -75,7 +74,6 @@ class Error_Objective:
                 "OSError",
                 "IOError",
                 "SystemExit",
-                "PendingDeprecationWarning",
                 "BaseException",
                 "Exception"
             },  # "Hard" Exceptions
