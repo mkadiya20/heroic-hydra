@@ -9,6 +9,7 @@ license = "MIT"
 python = "3.10.*"
 fastapi = "^0.79.0"
 black = "^22.6.0"
+aioconsole = "^0.5.0"
 
 [tool.poetry.dev-dependencies]
 # Base tools
