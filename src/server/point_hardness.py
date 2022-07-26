@@ -1,4 +1,3 @@
-import asyncio
 from user import User, MOD_THRESH, HARD_THRESH
 
 """
