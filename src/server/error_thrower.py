@@ -30,16 +30,9 @@ class Error_Objective:
         # Add more Exceptions.
         # Optimize Order
         # - Dial, 07/23/2022 9:32 PM EST
-        self.UNUSED_ERRORS = {
-            "NotImplementedError",
-            "PendingDeprecationWarning",
-            "FloatingPointError",
-            "StopAsyncIteration",
-            "Exception",
-            "BufferError",
-            "LookupError",
-            "BaseException",
-        }  # UNUSED / BASECLASS / REQUIRE "RAISE" https://docs.python.org/3/library/exceptions.html#built-in-exceptions
+        self.UNUSED_ERRORS = (
+            {}
+        )  # UNUSED / BASECLASS / REQUIRE "RAISE" https://docs.python.org/3/library/exceptions.html#built-in-exceptions
 
         self.ERRORS = {
             1: {
@@ -57,7 +50,6 @@ class Error_Objective:
                 "KeyboardInterrupt",
                 "SyntaxError",
                 "UnboundLocalError",
-                "LookupError",
                 "EOFError",
                 "RecursionError",
             },  # "Easy" Exceptions.
@@ -65,21 +57,25 @@ class Error_Objective:
                 "GeneratorExit",
                 "StopIteration",
                 "MemoryError",
-                "StopIteration",
                 "UnicodeError",
                 "UnicodeEncodeError",
                 "UnicodeDecodeError",
-                "DeprecationWarning",
-                "SystemExit",
+                "StopAsyncIteration",
                 "OverflowError",
+                "LookupError",
+                "BufferError",
+                "FloatingPointError",
+                "NotImplementedError",
             },  # "Moderate" Exceptions
             3: {
                 "SystemError",
                 "EnvironmentError",
                 "RuntimeError",
-                "BufferError",
                 "OSError",
                 "IOError",
+                "SystemExit",
+                "BaseException",
+                "Exception",
             },  # "Hard" Exceptions
         }
 

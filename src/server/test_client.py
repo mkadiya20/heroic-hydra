@@ -48,6 +48,7 @@ async def main():
             else:
                 await socket.send(json.dumps({"type": "submit", "data": inputted}))
             await handle(socket, await socket.recv())
+            await socket.recv()
 
 
 asyncio.run(main())

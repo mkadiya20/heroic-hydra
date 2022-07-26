@@ -53,19 +53,19 @@ Closing the websocket makes the server logout the user from the game and clean u
 i.e
 `{"type": "leaderboard"} (returns a dict of the leaderboard)`
 `{"type": "register", "data": "HRLO77"} (logs user in)`
-`{"type": "submit", "data": "print('hello world!')"} (sends code "print('hello world')" to test if it raises the error intended)`
+`{"type": "submit", "data": "print('hello world!')"} (sends code "print('hello world')" to see if it raises the error intended)`
 
 
 Order of requests and responnses for building a client:
 
-    1. Server sends "register" type request.
+>    1. Server sends "register" type request.
 
-    2. Client recieves response of registration. (type either "login" or "error").
+>    2. Client recieves response of registration. (type either "login" or "error").
 
-    3. Server sends type "objective" response (error that must be produced).
+>    >3. Server sends type "objective" response (error that must be produced).
 
-    4. Client sends request (can be of any type specified).
+>    >4. Client sends request (can be of any type specified) NOTE: if client sends a type "submit" request, after type "submit" response client will recieve type "leaderboard" response.
 
-    5. Server sends response of any type.
+>    >5. Server sends response of any type. (except if client requests type "submit" request, read above.)
 
 Steps 3, 4 and 5 (in consecutive order) are repeated after steps 1 and 2, until websocket is closed.
