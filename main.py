@@ -1,8 +1,8 @@
 import asyncio
 
+from Client import client
 from uvicorn import Config, Server
 
-from Client import client
 from server.server import app
 
 
