@@ -64,7 +64,7 @@ Order of requests and responnses for building a client:
 
 >    >3. Server sends type "objective" response (error that must be produced).
 
->    >4. Client sends request (can be of any type specified) NOTE: if client sends a type "submit" request, after type "submit" response client will recieve type "leaderboard" response. 
+>    >4. Client sends request (can be of any type specified) NOTE: if client sends a type "submit" request, after type "submit" response client will recieve type "leaderboard" response.
 
 >    >5. Server sends response of any type. (except if client requests type "submit" request, read above.)
 
