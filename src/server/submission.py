@@ -1,6 +1,17 @@
 import os
+import pwd
 import subprocess
 import sys
+
+# Check if no_access user has been set up for "safely"
+# allowing remote execution of python code.
+# If 'no_access' user doesn't exist, then the submitted code
+# will have all the permissions of the user that starts the server
+try:
+    pwd.getpwnam("no_access")
+    submit_user = "no_access"
+except KeyError:
+    submit_user = None
 
 
 class Submission:
@@ -18,6 +29,7 @@ class Submission:
                 [sys.executable, "-c", self.code_string],
                 timeout=10,
                 capture_output=True,
+                user=submit_user,
             )
         except subprocess.TimeoutExpired:
             return 0
@@ -50,7 +62,7 @@ if __name__ == "__main__":
     if len(sys.argv) == 3:
         dir_path = os.path.dirname(os.path.realpath(__file__))
         file_name = sys.argv[1]
-        full_path = dir_path + "/test_submissions/" + file_name
+        full_path = dir_path + "/../../tests/test_submissions/" + file_name
         text_file = open(full_path)
         code = text_file.read()
         targetError = sys.argv[2]
