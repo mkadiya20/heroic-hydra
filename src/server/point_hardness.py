@@ -9,6 +9,8 @@ class PointHandlerError(Exception):
     __module__ = "builtins"
 
 
+
+
 class PointHandler:
 
     async def point(self, assignment: str, client_user: User):
