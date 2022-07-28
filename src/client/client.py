@@ -57,7 +57,6 @@ async def hello():
                     data["objective"] = result["data"]
 
 
-
 def run():
     asyncio.run(hello())
 
