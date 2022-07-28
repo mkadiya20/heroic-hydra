@@ -33,7 +33,6 @@ class Submission:
 
         out = await self.get_error()
 
-
         if out == 0:
             return 0, False
         elif targetError in str(out):

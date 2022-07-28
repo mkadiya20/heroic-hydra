@@ -6,7 +6,6 @@ from threading import Lock, Thread
 
 import websockets
 
-
 lock = Lock()
 
 
@@ -55,10 +54,11 @@ async def hello():
             if result["type"] == "objective":
                 with lock:
                     data["objective"] = result["data"]
-            if result['type'] == 'leaderboard':
+            if result["type"] == "leaderboard":
                 lock.acquire()
-                data['leaderboard'] = result['data']
+                data["leaderboard"] = result["data"]
                 lock.release()
+
 
 def run():
     asyncio.run(hello())

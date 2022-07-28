@@ -30,8 +30,9 @@ class Error_Objective:
         # Add more Exceptions.
         # Optimize Order
         # - Dial, 07/23/2022 9:32 PM EST
-        self.UNUSED_ERRORS = {                               
-        }  # UNUSED / BASECLASS / REQUIRE "RAISE" https://docs.python.org/3/library/exceptions.html#built-in-exceptions
+        self.UNUSED_ERRORS = (
+            {}
+        )  # UNUSED / BASECLASS / REQUIRE "RAISE" https://docs.python.org/3/library/exceptions.html#built-in-exceptions
 
         self.ERRORS = {
             1: {
@@ -65,8 +66,7 @@ class Error_Objective:
                 "LookupError",
                 "BufferError",
                 "FloatingPointError",
-                "NotImplementedError"
-                
+                "NotImplementedError",
             },  # "Moderate" Exceptions
             3: {
                 "SystemError",
@@ -77,7 +77,7 @@ class Error_Objective:
                 "SystemExit",
                 "PendingDeprecationWarning",
                 "BaseException",
-                "Exception"
+                "Exception",
             },  # "Hard" Exceptions
         }
 

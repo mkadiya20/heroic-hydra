@@ -91,7 +91,6 @@ async def root(websocket: WebSocket):
                             }
                         )
                         await websocket.close()
-            
 
     except fastapi.WebSocketDisconnect:
         try:
