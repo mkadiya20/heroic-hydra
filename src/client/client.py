@@ -52,7 +52,7 @@ async def hello():
         await websocket.send(json.dumps(registration))
 
         while True:
-            result = await websocket.recv()
+            result = json.loads(await websocket.recv())
 
             if result["type"] == "login":
                 print(result["data"])
