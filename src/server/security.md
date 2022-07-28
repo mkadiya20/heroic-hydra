@@ -1,3 +1,13 @@
+# SNEKBOX SANDBOX
+Snekbox provides a relatively safe way to run user submitted code with some extra setup.
+
+- [Install docker on server and start it](https://docs.docker.com/desktop/)
+- Download the snekbox image with CLI
+`docker run --ipc=none --privileged -p 8060:8060 ghcr.io/python-discord/snekbox`
+
+
+# User method
+
 To prevent users from using submitted code to hack the server, a low-permission user can be created on the server machine
 to execute the submitted code without permissions.
 

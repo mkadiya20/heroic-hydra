@@ -1,17 +1,9 @@
 import os
-import pwd
-import subprocess
 import sys
 
-# Check if no_access user has been set up for "safely"
-# allowing remote execution of python code.
-# If 'no_access' user doesn't exist, then the submitted code
-# will have all the permissions of the user that starts the server
-try:
-    pwd.getpwnam("no_access")
-    submit_user = "no_access"
-except KeyError:
-    submit_user = None
+from requests import post
+
+SNEKBOX_URL = "http://localhost:8060/eval"
 
 
 class Submission:
@@ -24,19 +16,13 @@ class Submission:
 
     async def get_error(self):
         """Runs the submission file and returns the error that results"""
-        try:
-            res = subprocess.run(
-                [sys.executable, "-c", self.code_string],
-                timeout=10,
-                capture_output=True,
-                user=submit_user,
-            )
-        except subprocess.TimeoutExpired:
-            return 0
+        body = {"input": self.code_string}
+        snek_response = post(SNEKBOX_URL, body).json()
 
-        if int(res.returncode) == 0:
+        if not snek_response["returncode"]:  # no error
             return 0
-        return res.stderr
+        else:
+            return snek_response["stdout"]
 
     async def hit_target(self, targetError: str):
         """Checks how many points the user should get"""
