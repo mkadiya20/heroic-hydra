@@ -46,11 +46,10 @@ async def hello():
     global data
     async with websockets.connect("ws://localhost:8000") as websocket:
         registration = {
-            "user": f"{username}",
             "type": "register",
-            "data": f"{username}",
+            "data": username,
         }
-        await websocket.send(json.dumps(registration))
+        await websocket.send(registration)
 
         while True:
             result = await websocket.recv()
