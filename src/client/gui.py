@@ -4,18 +4,18 @@ from tkinter import Tk, ttk
 
 class GUI:
     def __init__(self):
-        root = Tk()
-        root.geometry("800x600")
-        root.title("Client")
+        self.root = Tk()
+        self.root.geometry("800x600")
+        self.root.title("Client")
 
-        root.columnconfigure(0, weight=1)
-        root.columnconfigure(1, weight=3)
-        root.rowconfigure(0, weight=1)
+        self.root.columnconfigure(0, weight=1)
+        self.root.columnconfigure(1, weight=3)
+        self.root.rowconfigure(0, weight=1)
 
-        self.editor_frame = ttk.Frame(root, padding=10)
+        self.editor_frame = ttk.Frame(self.root, padding=10)
         self.editor_frame.grid(row=0, column=0, sticky="nsew")
 
-        self.info_frame = ttk.Frame(root, padding=10)
+        self.info_frame = ttk.Frame(self.root, padding=10)
         self.info_frame.grid(row=0, column=1, sticky="nsew")
 
         self.text_editor = tk.Text(self.editor_frame)
@@ -24,12 +24,10 @@ class GUI:
 
         self.leaderboard = tk.Text(self.info_frame)
         self.leaderboard.insert(tk.END, "Leaderboard:")
-        self.leaderboard.config(state="disabled")
         self.leaderboard.pack(fill=tk.BOTH, expand=True)
 
         self.current_objective = tk.Text(self.info_frame)
         self.current_objective.insert(tk.END, "Current Objective:")
-        self.current_objective.config(state="disabled")
         self.current_objective.pack(fill=tk.BOTH, expand=True)
 
         self.submit_button = ttk.Button(
@@ -37,20 +35,33 @@ class GUI:
         )
         self.submit_button.pack()
 
-        root.mainloop()
+        self.root.after(0, self.update_leaderboard)
+        self.root.after(0, self.update_current_objective)
+
+        self.root.mainloop()
 
     def submit(self):
         """Pass the code to the server for submission"""
         pass
 
-    def update_leaderboard(self, leaderboard: list):
+    def update_leaderboard(self):
         """Update the leaderboard with the given list"""
-        pass
+        # data = client.get_data()
+        # leaderboard = data["leaderboard"]
+        leaderboard = "new leaderboard"
+        self.leaderboard.delete(1.0, tk.END)
+        self.leaderboard.insert(tk.END, leaderboard)
+        self.root.after(1000, self.update_leaderboard)
 
-    def update_current_objective(self, objective: str):
+    def update_current_objective(self):
         """Update the current objective with the given string"""
+        # import client
+        # data = get_data()
+        # objective = data["objective"]
+        objective = "new objective"
         self.current_objective.delete(1.0, tk.END)
         self.current_objective.insert(tk.END, objective)
+        self.root.after(1000, self.update_current_objective)
 
 
 # if __name__ == "__main__":
