@@ -41,23 +41,21 @@ async def hello():
     global data
     async with websockets.connect("ws://localhost:8000") as websocket:
         registration = {
+            "user": f"{username}",
             "type": "register",
-            "data": username,
+            "data": f"{username}",
         }
         await websocket.send(json.dumps(registration))
 
         while True:
-            result = json.loads(await websocket.recv())
+            result = await websocket.recv()
 
             if result["type"] == "login":
                 print(result["data"])
             if result["type"] == "objective":
                 with lock:
                     data["objective"] = result["data"]
-            if result["type"] == "leaderboard":
-                lock.acquire()
-                data["leaderboard"] = result["data"]
-                lock.release()
+
 
 
 def run():
