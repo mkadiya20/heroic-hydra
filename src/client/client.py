@@ -5,14 +5,10 @@ import json
 from threading import Lock, Thread
 
 import websockets
-from gui import GUI
-from login_gui import Login_GUI
+
 
 lock = Lock()
 
-login_gui = Login_GUI()
-username = login_gui.get_username()
-print(username)
 
 data = {"objective": None, "score": 0, "submission": None, "leaderboard": None}
 
@@ -68,10 +64,18 @@ def run():
     asyncio.run(hello())
 
 
-t = Thread(target=run)
-t.start()
-# t.join()
+if __name__ == "__main__":
+    from gui import GUI
+    from login_gui import Login_GUI
 
-gui = GUI()
-t.join()
-# gui.update_current_objective("New objective")
+    login_gui = Login_GUI()
+    username = login_gui.get_username()
+    print(username)
+
+    t = Thread(target=run)
+    t.start()
+    # t.join()
+
+    gui = GUI()
+    t.join()
+    # gui.update_current_objective("New objective")

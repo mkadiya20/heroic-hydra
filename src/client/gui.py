@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import Tk, ttk
+import client
 
 
 class GUI:
@@ -55,10 +56,10 @@ class GUI:
 
     def update_current_objective(self):
         """Update the current objective with the given string"""
-        # import client
-        # data = get_data()
-        # objective = data["objective"]
-        objective = "new objective"
+        data = client.get_data()
+        objective = data["objective"]
+        if objective is None:
+            objective = "Loading..."
         self.current_objective.delete(1.0, tk.END)
         self.current_objective.insert(tk.END, objective)
         self.root.after(1000, self.update_current_objective)
