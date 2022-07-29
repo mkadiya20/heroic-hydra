@@ -76,6 +76,8 @@ async def root(websocket: WebSocket):
                         await get_leaderboard(websocket)
 
                     case "submit":
+                        if data['data'] == '--close':
+                            await websocket.close()
                         await submit(websocket, data["data"], user, error)
                         await get_leaderboard(websocket)
                         break
