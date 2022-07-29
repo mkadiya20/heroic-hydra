@@ -13,16 +13,19 @@ async def register_user(username: str, websocket: WebSocket):
     if username not in clients.keys():
         await game.login(username)
         clients[username] = websocket
+        # Load the new user on Clients leaderboards
+        await send_leaderboard()
     else:
         await websocket.send_json({"type": "error", "data": "Username already taken"})
         await websocket.close()
 
 
-async def get_leaderboard(websocket: WebSocket):
+async def send_leaderboard():
     """Returns the leaderboard"""
-    await websocket.send_json(
-        {"type": "leaderboard", "data": await game.get_leaderboard()}
-    )
+    for ws in clients.values():
+        await ws.send_json(
+            {"type": "leaderboard", "data": await game.get_leaderboard()}
+        )
 
 
 async def submit(websocket: WebSocket, code: str, user: str, error: str):
@@ -73,13 +76,13 @@ async def root(websocket: WebSocket):
                 data = await websocket.receive_json()
                 match data["type"]:
                     case "leaderboard":
-                        await get_leaderboard(websocket)
+                        await send_leaderboard()
 
                     case "submit":
-                        if data['data'] == '--close':
+                        if data["data"] == "--close":
                             await websocket.close()
                         await submit(websocket, data["data"], user, error)
-                        await get_leaderboard(websocket)
+                        await send_leaderboard()
                         break
 
                     case "logout":
