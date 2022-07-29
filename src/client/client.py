@@ -138,8 +138,7 @@ class GUI:
 
     def update_leaderboard(self):
         """Update the leaderboard with the given list"""
-        data = get_leaderboard()
-        leaderboard = data["leaderboard"]
+        leaderboard = get_leaderboard()
         self.leaderboard.delete(1.0, tk.END)
 
         if leaderboard is None:
@@ -153,8 +152,7 @@ class GUI:
 
     def update_current_objective(self):
         """Update the current objective with the given string"""
-        data = get_objective()
-        objective = data["objective"]
+        objective = get_objective()
         if objective is None:
             objective = "Loading..."
         self.current_objective.delete(1.0, tk.END)
