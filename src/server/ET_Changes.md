@@ -1,4 +1,6 @@
-<a href="https://ibb.co/dQJ9hBc"><img src="https://i.ibb.co/2jY2bq6/image.png" alt="image" border="0"></a>
+<p align="center">
+    <a href="https://ibb.co/dQJ9hBc"><img src="https://i.ibb.co/2jY2bq6/image.png" alt="image" border="0"></a>
+</p>
 
 # Update 07/24/2022 1:47 PM EST
 ### DEPRECATION OF "toggle_difficulty_level"
