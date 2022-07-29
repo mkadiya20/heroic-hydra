@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import Tk, ttk
 
-import client
-
 
 class GUI:
     def __init__(self):
@@ -57,15 +55,11 @@ class GUI:
 
     def update_current_objective(self):
         """Update the current objective with the given string"""
-        data = client.get_data()
-        objective = data["objective"]
-        if objective is None:
-            objective = "Loading..."
+        # data = get_data()
+        # print(data)
+        # objective = data["objective"]
+        # if objective is None:
+        #     objective = "Loading..."
         self.current_objective.delete(1.0, tk.END)
-        self.current_objective.insert(tk.END, objective)
+        self.current_objective.insert(tk.END, "new objective")
         self.root.after(1000, self.update_current_objective)
-
-
-# if __name__ == "__main__":
-#     gui = GUI()
-#     gui.update_current_objective("This is the new objective!")
