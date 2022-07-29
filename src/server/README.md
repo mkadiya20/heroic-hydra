@@ -69,3 +69,7 @@ Order of requests and responnses for building a client:
 >    >5. Server sends response of any type. (except if it is a type "submit" request, read above.)
 
 Steps 3, 4 and 5 (in consecutive order) are repeated after steps 1 and 2, until websocket is closed.
+
+# GUI client
+
+run src/client/client.py to start up the gui. Close GUI window and terminal to close game.
