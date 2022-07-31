@@ -53,7 +53,7 @@ Closing the websocket makes the server logout the user from the game and clean u
 i.e
 `{"type": "leaderboard"} (returns a dict of the leaderboard)`
 `{"type": "register", "data": "HRLO77"} (logs user in)`
-`{"type": "submit", "data": "print('hello world!')"} (sends code "print('hello world')" to test if it raises the error intended)`
+`{"type": "submit", "data": "print('hello world!')"} (sends code "print('hello world')" to see if it raises the error intended)`
 
 
 Order of requests and responnses for building a client:
