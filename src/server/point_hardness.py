@@ -1,8 +1,7 @@
 import asyncio
 
-from user import User
 from error_thrower import Error_Objective
-
+from user import User
 
 """
 Copyright 2021 Python Discord
@@ -21,13 +20,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 class PointHandlerError(Exception):
     """Raised when an exception occurs inside PointHandler"""
+
     __module__ = "builtins"
 
 
 class PointHandler:
     """Handles point gain in terms of difficulty."""
 
-    async def point(self, assignment: str, client_user: User, error_obj: Error_Objective = Error_Objective()):
+    async def point(
+        self,
+        assignment: str,
+        client_user: User,
+        error_obj: Error_Objective = Error_Objective(),
+    ):
         """
         async awaits objective_checker(...) to return an int.
         if the integer returned is in range of the # of keys in ERROR; the score will be appended with the returned-int.
@@ -41,14 +46,19 @@ class PointHandler:
             if difficulty_int in range(len(error_obj.ERRORS)):
                 client_user.score += difficulty_int
             else:
-                raise ValueError(f"Difficulty must be an int with the range of 1 to {len(error_obj)}")
+                raise ValueError(
+                    f"Difficulty must be an int with the range of 1 to {len(error_obj)}"
+                )
             return client_user.score
         except BaseException as exception:
             raise PointHandlerError(
-                f" \n Type: {str(type(exception))[7:len(str(type(exception))) - 1]} \n \n Reason: {exception}")
+                f" \n Type: {str(type(exception))[7:len(str(type(exception))) - 1]} \n \n Reason: {exception}"
+            )
 
     @staticmethod
-    async def objective_checker(assignment: str, error_obj: Error_Objective = Error_Objective()):
+    async def objective_checker(
+        assignment: str, error_obj: Error_Objective = Error_Objective()
+    ):
         """Comment needed."""
 
         try:
@@ -61,7 +71,8 @@ class PointHandler:
             raise PointHandlerError(f"{assignment} not found")
         except BaseException as exception:
             raise PointHandlerError(
-                f" \n Type: {str(type(exception))[7:len(str(type(exception))) - 1]} \n \n Reason: {exception}")
+                f" \n Type: {str(type(exception))[7:len(str(type(exception))) - 1]} \n \n Reason: {exception}"
+            )
 
 
 pointhandle = PointHandler()

@@ -5,7 +5,7 @@
 # <change\> <date\> <time\>
 ### <title of change\>
 > <list of changes / summary>
-> > <Before | Old Usage | Current Usage | Legacy Usage> 
+> > <Before | Old Usage | Current Usage | Legacy Usage>
 > > > ```python
 > > > # Code here using python markdown
 > > > ```
