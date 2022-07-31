@@ -1,7 +1,4 @@
-from error_thrower import Error_Objective
 from user import User
-
-error_obj = Error_Objective()
 
 
 class UserError(Exception):
@@ -13,7 +10,6 @@ class Game:
 
     def __init__(self) -> None:
         self.users = {}
-        self.users_submitted = 0
 
     async def login(self, username: str) -> None:
         """Adds a user to the game."""
@@ -32,7 +28,7 @@ class Game:
     async def submit(self, username: str, submission_str: str) -> None:
         """Evaluates the user's submission and changes their score"""
         if username in self.users.keys():
-            self.users[username].submit(submission_str)
+            return await (self.users[username]).submit(submission_str)
         else:
             raise UserError("User does not exist.")
 
@@ -46,16 +42,16 @@ class Game:
     async def new_target(self, username: str):
         """Updates the user's target error"""
         try:
-            new_error = error_obj.objective()
-            self.users[username].assign_objective(new_error)
+            return await self.users[username].assign_objective()
         except KeyError:
             raise UserError("User does not exist.")
 
     async def get_leaderboard(self):
         """Returns the leaderboard"""
-        string = ""
-        c = 1
-        for k, v in self.users.items():
-            string += "{c}. {k} - {v.points} \n"
-            c += 1
-        return string
+        return dict(
+            sorted(
+                ((k, v.score) for k, v in self.users.items()),
+                key=(lambda x: x[1]),
+                reverse=True,
+            )
+        )

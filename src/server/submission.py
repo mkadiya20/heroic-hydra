@@ -6,40 +6,41 @@ import sys
 class Submission:
     """Submission class"""
 
-    def __init__(self, code_string) -> None:
-        """Submission class initialized with full path to submission"""
-        self.code_string = code_string
+    def __init__(self, code_string: str) -> None:
+        """Submission class initialized with submission string"""
+        self.code_string = code_string.replace("--test ", "")
+        self.code_string = self.code_string.replace("--test", "")
 
-    def get_error(self):
+    async def get_error(self):
         """Runs the submission file and returns the error that results"""
-
-        res = subprocess.run(
-            f"{sys.executable} -c {self.code_string}",
-            executable=sys.executable,
-            capture_output=True,
-            text=True,
-            timeout=10,
-        )
+        try:
+            res = subprocess.run(
+                [sys.executable, "-c", self.code_string],
+                timeout=10,
+                capture_output=True,
+            )
+        except subprocess.TimeoutExpired:
+            return 0
 
         if int(res.returncode) == 0:
             return 0
         return res.stderr
 
-    def hit_target(self, targetError):
+    async def hit_target(self, targetError: str):
         """Checks how many points the user should get"""
-        if self.check_cheating():
-            return -69
+        if await self.check_cheating():
+            return -690000000, False
 
-        out = self.get_error()
+        out = await self.get_error()
 
-        if out.returncode == 0:
-            return -1, False  # -1 point for no error?
-        elif targetError in str(out.stderr):
+        if out == 0:
+            return 0, False
+        elif targetError in str(out):
             return 1, True
         else:
             return 0, False
 
-    def check_cheating(self) -> bool:
+    async def check_cheating(self) -> bool:
         """Checks whether a submission contains 'raise' (and maybe check security)"""
         return "raise" in self.code_string
 
