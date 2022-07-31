@@ -7,13 +7,6 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
-"""
-|========================================|
-|PLEASE NOTIFY ME (DIAL) BEFORE CHANGING!|
-|            ALSO MAKE A COPY!!          |
-|========================================|
-"""
-
 
 class DifficultyObjectivesCompleted(Exception):
     """Raised when all objectives in self.ERROR[difficulty] is exactly equal to already_used_keywords."""
@@ -25,13 +18,7 @@ class Error_Objective:
     """Master Class for Error Objective Calling."""
 
     def __init__(self):
-        # TO-DO ( Dashed to allow commit)
-        # Add more Exceptions.
-        # Optimize Order
-        # - Dial, 07/23/2022 9:32 PM EST
-        self.UNUSED_ERRORS = (
-            {}
-        )  # UNUSED / BASECLASS / REQUIRE "RAISE" https://docs.python.org/3/library/exceptions.html#built-in-exceptions
+        self.UNUSED_ERRORS = {}
 
         self.ERRORS = {
             1: {
@@ -79,8 +66,8 @@ class Error_Objective:
         }
 
     async def objective(
-        self, difficulty: int, already_used_keywords: list | tuple = None
-    ):
+        self, difficulty: int, already_used_keywords: list = None
+    ) -> str:
         if not already_used_keywords:
             return list(self.ERRORS[difficulty])[
                 random.randint(0, len(self.ERRORS[difficulty]) - 1)
@@ -105,11 +92,3 @@ class Error_Objective:
                 raise DifficultyObjectivesCompleted(
                     f"All Objectives in {difficulty} are completed."
                 )
-
-
-"""
-|========================================|
-|PLEASE NOTIFY ME (DIAL) BEFORE CHANGING!|
-|            ALSO MAKE A COPY!!          |
-|========================================|
-"""

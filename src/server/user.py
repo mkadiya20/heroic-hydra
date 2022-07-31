@@ -19,13 +19,13 @@ class User:
         self.submission = None
         self.score = 0
 
-    async def submit(self, submission_string):
+    async def submit(self, submission_string) -> bool:
         """Creates submission instance attached to the user"""
 
         self.submission = Submission(submission_string)
         return await self.grade()
 
-    async def assign_objective(self):
+    async def assign_objective(self) -> str:
         """
         Used by Game.py to assign a error to a user with difficulty based
         on current score.
@@ -44,7 +44,7 @@ class User:
 
         return self.current_objective
 
-    async def grade(self):
+    async def grade(self) -> bool:
         """
         Judges submission and adjusts users score accordingly.
         The results are also returned.
