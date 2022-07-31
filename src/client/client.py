@@ -18,27 +18,28 @@ data = {
 }
 
 
-def get_objective():
+def get_objective() -> str:
     """Get the user data."""
     global data
     with lock:
         return data["objective"]
 
 
-def get_leaderboard():
+def get_leaderboard() -> dict:
     """Get the leaderboard."""
     global data
     with lock:
         return data["leaderboard"]
 
 
-def get_websocket():
+def get_websocket() -> websockets.WebSocketClientProtocol:
     """Get the websocket."""
     with lock:
         return data["websocket"]
 
 
-async def hello():
+async def main():
+    """This function is called when a websocket connection is made to http://localhost:8000/"""
     global data
     async with websockets.connect("ws://localhost:8000") as websocket:
         with lock:
@@ -63,16 +64,15 @@ async def hello():
                 with lock:
                     data["objective"] = result["data"]
             if result["type"] == "leaderboard":
-                # print(result["data"])
                 with lock:
                     data["leaderboard"] = result["data"]
 
 
 def run():
-    asyncio.run(hello())
+    asyncio.run(main())
 
 
-async def write(websocket):
+async def write(websocket: websockets.WebSocketClientProtocol):
     """Send a message to the server."""
     with lock:
         submission = data["submission"]
@@ -119,7 +119,6 @@ class GUI:
 
     def submit(self):
         """Pass the code to the server for submission"""
-        print("Submitting code...")
         websocket = get_websocket()
         if websocket is None:
             print("No websocket")
@@ -165,7 +164,6 @@ if __name__ == "__main__":
 
     login_gui = Login_GUI()
     username = login_gui.get_username()
-    print(username)
 
     t = Thread(target=run)
     t.start()

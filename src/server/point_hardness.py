@@ -1,20 +1,10 @@
-import asyncio
-
 from error_thrower import Error_Objective
-from user import User
 
 """
 Copyright 2021 Python Discord
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-"""
-
-"""
-|========================================|
-|PLEASE NOTIFY ME (DIAL) BEFORE CHANGING!|
-|            ALSO MAKE A COPY!!          |
-|========================================|
 """
 
 
@@ -30,9 +20,8 @@ class PointHandler:
     async def point(
         self,
         assignment: str,
-        client_user: User,
         error_obj: Error_Objective = Error_Objective(),
-    ):
+    ) -> int:
         """
         async awaits objective_checker(...) to return an int.
         if the integer returned is in range of the # of keys in ERROR; the score will be appended with the returned-int.
@@ -42,24 +31,24 @@ class PointHandler:
         """
 
         try:
+            score = 0
             difficulty_int: int = await self.objective_checker(assignment)
-            if difficulty_int in range(len(error_obj.ERRORS)):
-                client_user.score += difficulty_int
+            if difficulty_int in range(len(error_obj.ERRORS) + 1):
+                score += difficulty_int
             else:
                 raise ValueError(
                     f"Difficulty must be an int with the range of 1 to {len(error_obj)}"
                 )
-            return client_user.score
+            return score
         except BaseException as exception:
             raise PointHandlerError(
                 f" \n Type: {str(type(exception))[7:len(str(type(exception))) - 1]} \n \n Reason: {exception}"
             )
 
-    @staticmethod
     async def objective_checker(
         assignment: str, error_obj: Error_Objective = Error_Objective()
-    ):
-        """Comment needed."""
+    ) -> int:
+        """Check the difficulty of the assignment and return the difficulty_int."""
 
         try:
             for x in error_obj.ERRORS:
@@ -73,14 +62,3 @@ class PointHandler:
             raise PointHandlerError(
                 f" \n Type: {str(type(exception))[7:len(str(type(exception))) - 1]} \n \n Reason: {exception}"
             )
-
-
-pointhandle = PointHandler()
-foo = asyncio.run(pointhandle.point("ValueError", User("Bob")))
-print(foo)
-"""
-|========================================|
-|PLEASE NOTIFY ME (DIAL) BEFORE CHANGING!|
-|            ALSO MAKE A COPY!!          |
-|========================================|
-"""

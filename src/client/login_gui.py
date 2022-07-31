@@ -22,11 +22,14 @@ class Login_GUI:
         self.root.mainloop()
 
     def set_username(self, username: str):
+        """Set the username for the client"""
         self.username = username
 
     def get_username(self) -> str:
+        """Get the username for the client"""
         return self.username
 
     def login(self):
+        """Login the client and close the window"""
         self.set_username(username.get())
         self.root.destroy()

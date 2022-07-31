@@ -3,6 +3,7 @@ import subprocess
 import sys
 
 from aiohttp import request
+from point_hardness import PointHandler, PointHandlerError
 from security_config import SNEKBOX_ENABLE, SNEKBOX_URL
 
 
@@ -14,7 +15,7 @@ class Submission:
         self.code_string = code_string.replace("--test ", "")
         self.code_string = self.code_string.replace("--test", "")
 
-    async def get_error(self):
+    async def get_error(self) -> str:
         """Runs the submission file and returns the error that results"""
         if SNEKBOX_ENABLE:
             body = {"input": self.code_string}
@@ -39,7 +40,7 @@ class Submission:
                 return 0
             return res.stderr
 
-    async def hit_target(self, targetError: str):
+    async def hit_target(self, targetError: str) -> tuple:
         """Checks how many points the user should get"""
         if await self.check_cheating():
             return -690000000, False
@@ -49,7 +50,11 @@ class Submission:
         if out == 0:
             return 0, False
         elif targetError in str(out):
-            return 1, True
+            point_handler = PointHandler()
+            try:
+                return point_handler.point(targetError), True
+            except PointHandlerError:
+                return 0, False
         else:
             return 0, False
 
