@@ -1,6 +1,5 @@
 import fastapi
 from fastapi import FastAPI, WebSocket
-
 from Game import Game
 
 game = Game()
