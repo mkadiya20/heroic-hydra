@@ -1,3 +1,5 @@
+import asyncio
+
 import fastapi
 from fastapi import FastAPI, WebSocket
 from Game import Game
@@ -42,6 +44,11 @@ async def submit(websocket: WebSocket, code: str, user: str, error: str):
     )
 
 
+async def enough_players():
+    if len(clients) >= 2:
+        return True
+
+
 @app.websocket("/")
 async def root(websocket: WebSocket):
     """This function is called when a websocket connection is made to http://localhost:8000/"""
@@ -62,8 +69,10 @@ async def root(websocket: WebSocket):
             await websocket.send_json({"type": "error", "data": "Register user first."})
             await websocket.close()
 
-        while True:
+        # Wait for users to join
+        await asyncio.Condition().wait_for(enough_players)
 
+        while True:
             error = await game.new_target(user)
             while True:
                 await websocket.send_json(
