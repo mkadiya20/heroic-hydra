@@ -8,19 +8,28 @@ Test your knowledge of python execptions and play against multiple friends.
 *Instructions below assume that you have python and pip installed already.*
 
 1. Clone this repository.
-`git clone https://github.com/mkadiya20/heroic-hydra.git`
+
+   `git clone https://github.com/mkadiya20/heroic-hydra.git`
+
 2. (Optional) Setup virtual environment.
 3. [Install tkinter](https://tkdocs.com/tutorial/install.html)
-3. Install dependencies:
-`pip install -r dev-requirements.txt`
-4. Setup snekbox on server for security or change `SNEKBOX_ENABLED` to `False` in security_config.py. To setup snekbox:
+4. Install dependencies:
+
+   `pip install -r dev-requirements.txt`
+
+5. Setup snekbox on server for security or change `SNEKBOX_ENABLED` to `False` in security_config.py. To setup snekbox:
    - [Install docker on server and start it](https://docs.docker.com/desktop/)
    - Download and run the snekbox image from the GitHub conatiner registry with CLI:
-   `docker run --ipc=none --privileged -p 8060:8060 ghcr.io/python-discord/snekbox`
-5. Navigate to src/server and execute the following command to start the server:
-`python -m uvicorn server:app --reload --timeout-keep-alive 9999999999999 --ws websockets --ws-max-size 1024 --loop asyncio`
-6. In another terminal, navigate to project root and start a client.
-`python src/client/client.py`
+
+      `docker run --ipc=none --privileged -p 8060:8060 ghcr.io/python-discord/snekbox`
+
+6. Navigate to src/server and execute the following command to start the server:
+
+   `python -m uvicorn server:app --reload --timeout-keep-alive 9999999999999 --ws websockets --ws-max-size 1024 --loop asyncio`
+
+7. In another terminal, navigate to project root and start a client.
+
+   `python src/client/client.py`
 
 ## Play the Game
 1. Login with username of your choosing.
