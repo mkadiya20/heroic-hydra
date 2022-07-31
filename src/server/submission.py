@@ -2,6 +2,9 @@ import os
 import subprocess
 import sys
 
+from aiohttp import request
+from security_config import SNEKBOX_ENABLE, SNEKBOX_URL
+
 
 class Submission:
     """Submission class"""
@@ -13,18 +16,28 @@ class Submission:
 
     async def get_error(self):
         """Runs the submission file and returns the error that results"""
-        try:
-            res = subprocess.run(
-                [sys.executable, "-c", self.code_string],
-                timeout=10,
-                capture_output=True,
-            )
-        except subprocess.TimeoutExpired:
-            return 0
+        if SNEKBOX_ENABLE:
+            body = {"input": self.code_string}
 
-        if int(res.returncode) == 0:
-            return 0
-        return res.stderr
+            async with request("post", SNEKBOX_URL, data=body) as resp:
+                snek_response = await resp.json()
+
+            if not snek_response["returncode"]:  # no error
+                return 0
+            else:
+                return snek_response["stdout"]
+        else:
+            try:
+                res = subprocess.run(
+                    [sys.executable, "-c", self.code_string],
+                    timeout=10,
+                    capture_output=True,
+                )
+            except subprocess.TimeoutExpired:
+                return 0
+            if int(res.returncode) == 0:
+                return 0
+            return res.stderr
 
     async def hit_target(self, targetError: str):
         """Checks how many points the user should get"""
@@ -50,7 +63,7 @@ if __name__ == "__main__":
     if len(sys.argv) == 3:
         dir_path = os.path.dirname(os.path.realpath(__file__))
         file_name = sys.argv[1]
-        full_path = dir_path + "/test_submissions/" + file_name
+        full_path = dir_path + "/../../tests/test_submissions/" + file_name
         text_file = open(full_path)
         code = text_file.read()
         targetError = sys.argv[2]
