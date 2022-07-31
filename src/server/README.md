@@ -64,8 +64,12 @@ Order of requests and responnses for building a client:
 
 >    >3. Server sends type "objective" response (error that must be produced).
 
->    >4. Client sends request (can be of any type specified) NOTE: if client sends a type "submit" request, after type "submit" response client will recieve type "leaderboard" response.
+>    >4. Client sends request (can be of any type specified). (NOTE: When the client sends a type "submit" request, the client will get a response of the type "submit" first, then a type "leaderboard" after.)
 
->    >5. Server sends response of any type. (except if client requests type "submit" request, read above.)
+>    >5. Server sends response of any type. (except if it is a type "submit" request, read above.)
 
 Steps 3, 4 and 5 (in consecutive order) are repeated after steps 1 and 2, until websocket is closed.
+
+# GUI client
+
+run src/client/client.py to start up the gui. Close GUI window and terminal to close game.
