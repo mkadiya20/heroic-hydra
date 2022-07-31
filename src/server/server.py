@@ -12,16 +12,19 @@ async def register_user(username: str, websocket: WebSocket):
     if username not in clients.keys():
         await game.login(username)
         clients[username] = websocket
+        # Load the new user on Clients leaderboards
+        await send_leaderboard()
     else:
         await websocket.send_json({"type": "error", "data": "Username already taken"})
         await websocket.close()
 
 
-async def get_leaderboard(websocket: WebSocket):
+async def send_leaderboard():
     """Returns the leaderboard"""
-    await websocket.send_json(
-        {"type": "leaderboard", "data": await game.get_leaderboard()}
-    )
+    for ws in clients.values():
+        await ws.send_json(
+            {"type": "leaderboard", "data": await game.get_leaderboard()}
+        )
 
 
 async def submit(websocket: WebSocket, code: str, user: str, error: str):
@@ -47,20 +50,17 @@ async def root(websocket: WebSocket):
 
         data = await websocket.receive_json()
 
-        match data["type"]:
-            case "register":
-                user = data["data"]
-                await register_user(user, websocket)
-                await websocket.send_json(
-                    {"type": "login", "data": f"Logged in as {user}!"}
-                )
-                print(f"{user} joined the game.")
+        if data["type"] == "register":
+            user = data["data"]
+            await register_user(user, websocket)
+            await websocket.send_json(
+                {"type": "login", "data": f"Logged in as {user}!"}
+            )
+            print(f"{user} joined the game.")
 
-            case _:
-                await websocket.send_json(
-                    {"type": "error", "data": "Register user first."}
-                )
-                await websocket.close()
+        else:
+            await websocket.send_json({"type": "error", "data": "Register user first."})
+            await websocket.close()
 
         while True:
 
@@ -70,26 +70,27 @@ async def root(websocket: WebSocket):
                     {"type": "objective", "data": f"Produce error {error}."}
                 )
                 data = await websocket.receive_json()
-                match data["type"]:
-                    case "leaderboard":
-                        await get_leaderboard(websocket)
+                if data["type"] == "leaderboard":
+                    await send_leaderboard()
 
-                    case "submit":
-                        await submit(websocket, data["data"], user, error)
-                        await get_leaderboard(websocket)
-                        break
-
-                    case "logout":
+                if data["type"] == "submit":
+                    if data["data"] == "--close":
                         await websocket.close()
+                    await submit(websocket, data["data"], user, error)
+                    await send_leaderboard()
+                    break
 
-                    case _ as err:
-                        await websocket.send_json(
-                            {
-                                "type": "error",
-                                "data": f"Unsupported request type - {err}",
-                            }
-                        )
-                        await websocket.close()
+                if data["type"] == "logout":
+                    await websocket.close()
+
+                else:
+                    await websocket.send_json(
+                        {
+                            "type": "error",
+                            "data": f"Unsupported request type - {data['type']}",
+                        }
+                    )
+                    await websocket.close()
 
     except fastapi.WebSocketDisconnect:
         try:
