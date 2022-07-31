@@ -15,11 +15,12 @@ Test your knowledge of python execptions and play against multiple friends.
 3. [Install tkinter](https://tkdocs.com/tutorial/install.html)
 4. Install dependencies:
 
-   `pip install -r dev-requirements.txt`
+   `poetry install`
 
 5. Setup snekbox on server for security or change `SNEKBOX_ENABLED` to `False` in security_config.py. To setup snekbox:
    - [Install docker on server and start it](https://docs.docker.com/desktop/)
-   - Download and run the snekbox image from the GitHub conatiner registry with CLI:
+   - Download, install, and run [docker](https://www.docker.com/products/docker-desktop/) for your version.
+   - Download and run the snekbox image from the GitHub container registry with CLI:
 
       `docker run --ipc=none --privileged -p 8060:8060 ghcr.io/python-discord/snekbox`
 
@@ -27,9 +28,9 @@ Test your knowledge of python execptions and play against multiple friends.
 
    `python -m uvicorn server:app --reload --timeout-keep-alive 9999999999999 --ws websockets --ws-max-size 1024 --loop asyncio`
 
-7. In another terminal, navigate to project root and start a client.
+7. In another terminal, navigate to src/client and execute the following command to start a client.
 
-   `python src/client/client.py`
+   `python client.py`
 
 ## Play the Game
 1. Login with username of your choosing.
@@ -38,3 +39,5 @@ Test your knowledge of python execptions and play against multiple friends.
 The leaderboard in the top right shows currently logged in players and their score.
 
 Difficulty will ramp up as your score rises.
+
+Leave the game by closing the GUI and the terminal.
