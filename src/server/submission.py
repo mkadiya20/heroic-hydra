@@ -1,9 +1,9 @@
 import os
+import subprocess
 import sys
 
-from requests import post
-
-SNEKBOX_URL = "http://localhost:8060/eval"
+from aiohttp import request
+from security_config import SNEKBOX_ENABLE, SNEKBOX_URL
 
 
 class Submission:
@@ -16,13 +16,28 @@ class Submission:
 
     async def get_error(self):
         """Runs the submission file and returns the error that results"""
-        body = {"input": self.code_string}
-        snek_response = post(SNEKBOX_URL, body).json()
+        if SNEKBOX_ENABLE:
+            body = {"input": self.code_string}
 
-        if not snek_response["returncode"]:  # no error
-            return 0
+            async with request("post", SNEKBOX_URL, data=body) as resp:
+                snek_response = await resp.json()
+
+            if not snek_response["returncode"]:  # no error
+                return 0
+            else:
+                return snek_response["stdout"]
         else:
-            return snek_response["stdout"]
+            try:
+                res = subprocess.run(
+                    [sys.executable, "-c", self.code_string],
+                    timeout=10,
+                    capture_output=True,
+                )
+            except subprocess.TimeoutExpired:
+                return 0
+            if int(res.returncode) == 0:
+                return 0
+            return res.stderr
 
     async def hit_target(self, targetError: str):
         """Checks how many points the user should get"""
