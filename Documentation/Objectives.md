@@ -9,7 +9,6 @@
 
 
 
-
 <img src="https://www.pythondiscord.com/static/images/events/summer_code_jam_2022/site_banner.png" alt="Summer Code Jam Banner">
 
 
@@ -17,6 +16,12 @@
 
 > <font color="#FFC125" style="bold">**Documentation for [Error Thrower] & [Point Handler]**  </font>
 
+# Table of Contents <img src="https://www.iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png" width=50, height=50>
+> [Project Dependencies](#Dependencies) <br>
+> [License Terms](#License) <br>
+> [Error Thrower Class](#ErrorThrower) <br>
+> [Point Handler Class](#PointHandler)
+> 
 
 ## Dependencies <span id="Dependencies"><span>
 > The following are required to be installed to use **<font color="#FF4040"> Error </font> Race**
@@ -38,7 +43,7 @@
 
 
 
-## Error Thrower <span id="Error Thrower"><span>
+## Error Thrower <span id="ErrorThrower"><span>
 
 > Initialize <font color="#FF8C00"> Error_Objective </font>:
 > > <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2048px-Python-logo-notext.svg.png" height="20"> <font color="#FFD43B"> Python</font>:
@@ -95,7 +100,7 @@
 > > <code> asyncio.run(error_obj.objective(...)) </code>
 
 
-## Point Handler <span id="Point Handler"><span>
+## Point Handler <span id="PointHandler"><span>
 
 > Initialize <font color="#FF8C00"> PointHandlerError </font>:
 > > <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2048px-Python-logo-notext.svg.png" height="20"> <font color="#FFD43B"> Python</font>:
@@ -164,3 +169,5 @@
 
 
 > Documentation by: <font color="#FF8C00" size="6"> Clyde#2021 <img src="https://cdn-icons-png.flaticon.com/128/616/616454.png" width="27">
+
+  
