@@ -21,11 +21,11 @@
 > [License Terms](#License) <br>
 > [Error Thrower Class](#ErrorThrower) <br>
 > [Point Handler Class](#PointHandler)
-> 
+>
 
 ## Dependencies <span id="Dependencies"><span>
 > The following are required to be installed to use **<font color="#FF4040"> Error </font> Race**
-> 
+>
 > * [Python 3.10]
 > * [Project Dependencies]
 > * Access to [LocalHost URL] / [Alternative URL] using ports 8000 and 8060
@@ -38,8 +38,8 @@
 
 > <font color="#FF4040">**BEFORE YOU CONTINUE!** </font>
 > > Please Read the [License] Agreements before continuing. By continuing you hereby declare that you have read the contents of [license] and agree to its terms.
-> 
-> 
+>
+>
 
 
 
@@ -52,9 +52,9 @@
 > >     <br>
 > >     Since you're already using the classes file; the <code>imports</code> are already present.
 > >     You'll only need to add the following code to the bottom of the file:
-> >     
+> >  
 > >     error_obj = Error_Objective()
-> > 
+> >
 > >   </details>
 > > <details>
 > >    <summary>Outside of <code>error_thrower.py</code></summary>
@@ -62,15 +62,15 @@
 > >     Since you're using a different python file to initialize <font color="#FF8C00"> Error_Objective </font>
 > >     <br>
 > >     You'll need to add the following imports to the top of the file:
-> >     
+> >  
 > >     import asyncio
 > >     from error_thrower import Error_Objective
 > >    <br>
 > >      Then, add the following in a spot you see fit:
 > >    <br>
-> >      
+> >  
 > >     error_obj = Error_Objective()
-> > 
+> >
 > >   </details>
 
 > Call <font color="#FF8C00"> Error_Objective</font>
@@ -109,10 +109,10 @@
 > >     <br>
 > >     Since you're already using the classes file; the <code>imports</code> are already present.
 > >     You'll only need to add the following code to the bottom of the file:
-> >     
+> >  
 > >     point_obj = PointHandler()
-> > 
-> > 
+> >
+> >
 > >   </details>
 > > <details>
 > >    <summary>Outside of <code>point_hardness.py</code></summary>
@@ -120,16 +120,16 @@
 > >     Since you're using a different python file to initialize <font color="#FF8C00"> PointHandler </font>
 > >     <br>
 > >     You'll need to add the following imports to the top of the file:
-> >     
+> >  
 > >     import asyncio
 > >     from error_thrower import Error_Objective
 > >     from user import User
 > >    <br>
 > >      Then, add the following in a spot you see fit:
 > >    <br>
-> >      
+> >  
 > >     point_obj = PointHandler()
-> > 
+> >
 > >   </details>
 
 > Call <font color="#FF8C00"> PointHandler</font>
