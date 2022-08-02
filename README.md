@@ -16,6 +16,7 @@ Test your knowledge of python exceptions and play against multiple friends.
 4. Install dependencies:
 
    `poetry install`
+   `pip install -r dev-requirements.txt`
 
 5. Setup snekbox on server for security or change `SNEKBOX_ENABLED` to `False` in security_config.py. To setup snekbox:
    - [Install docker on server and start it](https://docs.docker.com/desktop/)
