@@ -2,7 +2,7 @@
 
 Error Race is a game where players submit python code that tries to achieve an objective. The twist is that the objectives are different types of errors!
 
-Test your knowledge of python execptions and play against multiple friends.
+Test your knowledge of python exceptions and play against multiple friends.
 
 ## Run the Game
 *Instructions below assume that you have python and pip installed already.*
