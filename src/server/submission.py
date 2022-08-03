@@ -39,7 +39,7 @@ class Submission:
                 return 0
             return res.stderr
 
-    async def hit_target(self, targetError: str) -> tuple:
+    async def hit_target(self, targetError: str) -> tuple[int, bool]:
         """Checks how many points the user should get"""
         if await self.check_cheating():
             return -690000000, False

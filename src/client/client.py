@@ -39,9 +39,9 @@ def get_websocket() -> websockets.WebSocketClientProtocol:
 
 
 async def main():
-    """This function is called when a websocket connection is made to http://localhost:8000/"""
+    """This function is called when a websocket connection is made to http://0.0.0.0:6969/"""
     global data
-    async with websockets.connect("ws://localhost:8000") as websocket:
+    async with websockets.connect("ws://127.0.0.1:8000/") as websocket:
         with lock:
             data["websocket"] = websocket
 

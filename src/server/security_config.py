@@ -1,4 +1,4 @@
-SNEKBOX_ENABLE = True
+SNEKBOX_ENABLE = False
 
 SNEKBOX_IP = "localhost"
 SNEKBOX_PORT = "8060"
