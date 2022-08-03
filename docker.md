@@ -9,7 +9,7 @@ In that directory run: `docker build . --tag heroic-hydra`
 
 (You must have a folder named heroic-hydra in the top directory)
 
-After the image is built, run to setup the container for the first time: 
+After the image is built, run to setup the container for the first time:
 `docker run -d -p 8000:8000 docker.io/library/heroic-hydra`
 
 After running this command, you can restart the container in docker without it (run command to make a new container).
