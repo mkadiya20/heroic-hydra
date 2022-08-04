@@ -72,6 +72,7 @@ async def root(websocket: WebSocket):
                 data = await websocket.receive_json()
                 if data["type"] == "leaderboard":
                     await send_leaderboard()
+                    continue
 
                 if data["type"] == "submit":
                     if data["data"] == "--close":
