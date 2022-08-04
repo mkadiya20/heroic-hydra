@@ -2,7 +2,7 @@
 
 Error Race is a game where players submit python code that tries to achieve an objective. The twist is that the objectives are different types of errors!
 
-Test your knowledge of python execptions and play against multiple friends.
+Test your knowledge of python exceptions and play against multiple friends.
 
 ## Run the Game
 *Instructions below assume that you have python and pip installed already.*
@@ -16,6 +16,7 @@ Test your knowledge of python execptions and play against multiple friends.
 4. Install dependencies:
 
    `poetry install`
+   `pip install -r dev-requirements.txt`
 
 5. Setup snekbox on server for security or change `SNEKBOX_ENABLED` to `False` in security_config.py. To setup snekbox:
    - [Install docker on server and start it](https://docs.docker.com/desktop/)

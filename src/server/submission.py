@@ -3,7 +3,6 @@ import subprocess
 import sys
 
 from aiohttp import request
-from point_hardness import PointHandler, PointHandlerError
 from security_config import SNEKBOX_ENABLE, SNEKBOX_URL
 
 
@@ -23,7 +22,7 @@ class Submission:
             async with request("post", SNEKBOX_URL, data=body) as resp:
                 snek_response = await resp.json()
 
-            if not snek_response["returncode"]:  # no error
+            if snek_response["returncode"] == 0:  # no error
                 return 0
             else:
                 return snek_response["stdout"]
@@ -50,11 +49,7 @@ class Submission:
         if out == 0:
             return 0, False
         elif targetError in str(out):
-            point_handler = PointHandler()
-            try:
-                return point_handler.point(targetError), True
-            except PointHandlerError:
-                return 0, False
+            return 1, True
         else:
             return 0, False
 
