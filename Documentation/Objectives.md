@@ -6,16 +6,21 @@
 [LocalHost URL]: http://localhost/
 [Alternative URL]: http://127.0.0.1/
 
-
-
-
-
 <img src="https://www.pythondiscord.com/static/images/events/summer_code_jam_2022/site_banner.png" alt="Summer Code Jam Banner">
 
 
 # <font color="#FF4040"> Error </font> Race
 
 > <font color="#FFC125" style="bold">**Documentation for [Error Thrower] & [Point Handler]**  </font>
+
+> <font color="#FF4040">**WARNING: DEPRECATION <br> [Point Handler] was removed from the latest codebase due to game breaking issues. The file is still included and any usage of it is up to you.**</font>
+ 
+
+# Table of Contents <img src="https://www.iconpacks.net/icons/2/free-opened-book-icon-3163-thumb.png" width=50, height=50>
+> [Project Dependencies](#Dependencies) <br>
+> [License Terms](#License) <br>
+> [Error Thrower Class](#ErrorThrower) <br>
+> [Point Handler Class](#PointHandler) <font color="#FF4040"> (!) Refer to Depreciation Notice </font>
 
 
 ## Dependencies <span id="Dependencies"><span>
@@ -25,20 +30,12 @@
 > * [Project Dependencies]
 > * Access to [LocalHost URL] / [Alternative URL] using ports 8000 and 8060
 
-
-
-
-
 ## License <span id="License"><span>
 
 > <font color="#FF4040">**BEFORE YOU CONTINUE!** </font>
 > > Please Read the [License] Agreements before continuing. By continuing you hereby declare that you have read the contents of [license] and agree to its terms.
-> 
-> 
 
-
-
-## Error Thrower <span id="Error Thrower"><span>
+## Error Thrower <span id="ErrorThrower"><span>
 
 > Initialize <font color="#FF8C00"> Error_Objective </font>:
 > > <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2048px-Python-logo-notext.svg.png" height="20"> <font color="#FFD43B"> Python</font>:
@@ -95,7 +92,9 @@
 > > <code> asyncio.run(error_obj.objective(...)) </code>
 
 
-## Point Handler <span id="Point Handler"><span>
+## Point Handler <span id="PointHandler"><span>
+
+> <font color="#FF4040">**WARNING: DEPRECATION <br> [Point Handler] was removed from the latest codebase due to game breaking issues. The file is still included and any usage of it is up to you.**</font>
 
 > Initialize <font color="#FF8C00"> PointHandlerError </font>:
 > > <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/2048px-Python-logo-notext.svg.png" height="20"> <font color="#FFD43B"> Python</font>:
@@ -118,7 +117,6 @@
 > >     
 > >     import asyncio
 > >     from error_thrower import Error_Objective
-> >     from user import User
 > >    <br>
 > >      Then, add the following in a spot you see fit:
 > >    <br>
@@ -144,7 +142,6 @@
 > >     <td> Required</td>
 > >  </tr>
 > >     <td><font color="#FF8C00"> Assignment</font></td> <td><font color="#959ed6">  str</font></td><td>>===>===></td><td>True</td></tr>
-> >     <td><font color="#FF8C00"> client_user</font></td> <td>User</td><td>>===>===></td><td>True</td></tr>
 > >     <td><font color="#FF8C00"> error_obj</font></td> <td>Error_Objective</td><td>Error_Objective()</td><td>*False </td></tr>
 > > </table>
 > > </details>
@@ -154,13 +151,5 @@
 > > </details>
 > > Add the following on the line you want to call it from: <br>
 > > <code> asyncio.run(point_obj.point(...)) </code>
-
-
-
-
-
-
-
-
 
 > Documentation by: <font color="#FF8C00" size="6"> Clyde#2021 <img src="https://cdn-icons-png.flaticon.com/128/616/616454.png" width="27">
